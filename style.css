@@ -60,7 +60,7 @@ h1 {
   background: #eee;
   color: #333;
   font-size: 6rem;
-  width: 15rem;
+  width: 36rem;
   padding: 3rem 0rem;
   text-align: center;
   position: absolute;
@@ -115,5 +115,13 @@ h1 {
 }
 
 .label-score {
+  margin-bottom: 2rem;
+}
+
+.label-highscore {
+  margin-bottom: 8rem;
+}
+
+.highscore li {
   margin-bottom: 2rem;
 }
