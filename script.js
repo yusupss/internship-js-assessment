@@ -3,14 +3,19 @@
 const highScore = document
   .querySelector('.highscore')
   .getElementsByTagName('li');
+
 const guessEl = document.querySelector('.guess');
 const resultEl = document.querySelector('.result');
 const messageEl = document.querySelector('.message');
+
 const btnCheckEl = document.querySelector('.check');
 const btnAgainEl = document.querySelector('.again');
 const btnSubmitEl = document.querySelector('.submit');
-const scoreEl = document.querySelector('.score');
+
 const nameEl = document.querySelector('.name');
+const scoreEl = document.querySelector('.score');
+const bodyEl = document.querySelector('body');
+
 let time = document.querySelector('.time');
 let questionEl = document.querySelector('.question');
 let question, answer, isPlaying, score, hasWrittenName;
@@ -76,13 +81,15 @@ const showResult = function () {
   displayMessage("💣 Time's up!");
   questionEl.textContent = `You're Score is ${score}`;
   questionEl.style.width = '90rem';
-  if (score > players[4].score) resultEl.classList.remove('hidden');
+  if (score > players[4].score) {
+    resultEl.classList.remove('hidden');
+    bodyEl.style.backgroundColor = '#269c77';
+  }
 };
 
 const startTimer = function () {
-  let timeLeft = 2;
+  let timeLeft = 19;
   let timerId = setInterval(timer, 1000);
-  time.textContent = timeLeft;
 
   function timer() {
     console.log(timeLeft);
@@ -96,20 +103,22 @@ const startTimer = function () {
 
 const start = function () {
   if (!isPlaying) {
-    score = 2;
+    score = 0;
     isPlaying = true;
     hasWrittenName = false;
+
     questionEl.classList.remove('btn');
     questionEl.style.width = '32rem';
     resultEl.classList.add('hidden');
+    scoreEl.textContent = score;
     guessEl.value = '';
+    bodyEl.style.backgroundColor = '#222';
 
     displayMessage('Start Guessing...');
     startTimer();
 
     ({ question, answer } = generateQuestion());
     questionEl.textContent = question;
-    questionEl.style.pointerEvents = 'none';
   }
 };
 
@@ -143,9 +152,13 @@ const addNewHighscore = function () {
   }
 };
 
-questionEl.addEventListener('click', start);
-btnCheckEl.addEventListener('click', checkAnswer);
-btnAgainEl.addEventListener('click', start);
-btnSubmitEl.addEventListener('click', addNewHighscore);
+const init = function () {
+  questionEl.addEventListener('click', start);
+  btnCheckEl.addEventListener('click', checkAnswer);
+  btnAgainEl.addEventListener('click', start);
+  btnSubmitEl.addEventListener('click', addNewHighscore);
 
-displayHighscore(players);
+  displayHighscore(players);
+};
+
+init();
