@@ -11,26 +11,17 @@ document.querySelector('.guess').value = 23;*/
 const highScore = document
   .querySelector('.highscore')
   .getElementsByTagName('li');
+const guessEl = document.querySelector('.guess');
+const messageEl = document.querySelector('.message');
+const btnCheckEl = document.querySelector('.check');
 let time = document.querySelector('.time');
+let questionEl = document.querySelector('.question');
+let question, answer, isPlaying;
 
 function randomize(number) {
   return Math.trunc(Math.random() * number) + 1;
 }
 
-const secretNumber1 = randomize(9);
-const secretNumber2 = randomize(9);
-const listOperation = ['+', '-', 'x'];
-const operation = listOperation[randomize(3)];
-let answer;
-if (operation === 0) {
-  answer = secretNumber1 + secretNumber2;
-} else if (operation === 1) {
-  answer = secretNumber1 - secretNumber2;
-} else {
-  answer = secretNumber1 * secretNumber2;
-}
-
-console.log(answer);
 const players = [
   {
     name: 'Mario',
@@ -60,22 +51,66 @@ const displayHighscore = function (arr) {
   }
 };
 
-const start = function () {
-  let timeLeft = Number(time.textContent) - 1;
-  let timerId = setInterval(timer, 1000);
+const displayMessage = function (message) {
+  messageEl.textContent = message;
+};
 
-  function timer() {
-    console.log(timeLeft);
-    if (timeLeft === -1) {
-      console.log('waktu habis');
-      clearInterval(timerId);
+const generateQuestion = function () {
+  const num1 = randomize(9);
+  const num2 = randomize(9);
+  const listOperation = ['+', '-', 'x'];
+  const operation = listOperation[randomize(2)];
+  let answer;
+  if (operation === '+') {
+    answer = num1 + num2;
+  } else if (operation === '-') {
+    answer = num1 - num2;
+  } else {
+    answer = num1 * num2;
+  }
+  const question = `${num1} ${operation} ${num2}`;
+
+  return { question, answer };
+};
+
+const start = function () {
+  if (!isPlaying) {
+    let timeLeft = Number(time.textContent) - 1;
+    let timerId = setInterval(timer, 1000);
+    isPlaying = true;
+
+    function timer() {
+      console.log(timeLeft);
+      if (timeLeft === -1) {
+        isPlaying = false;
+        clearInterval(timerId);
+      } else {
+        time.textContent = timeLeft--;
+      }
+    }
+
+    ({ question, answer } = generateQuestion());
+    questionEl.textContent = question;
+    questionEl.style.pointerEvents = 'none';
+    console.log(question, answer);
+  }
+};
+
+const checkAnswer = function () {
+  if (isPlaying) {
+    const guess = Number(guessEl.value);
+    if (answer === guess) {
+      displayMessage('Correct Answer! Answer Next!');
+      ({ question, answer } = generateQuestion());
+      questionEl.textContent = question;
     } else {
-      time.textContent = timeLeft--;
+      displayMessage('Wrong answer!');
     }
   }
 };
 
-document.querySelector('.number').addEventListener('click', start);
+questionEl.addEventListener('click', start);
+btnCheckEl.addEventListener('click', checkAnswer);
 
 displayHighscore(players);
 // let score = 20;
