@@ -39,3 +39,16 @@ const generateQuestion = () => {
 
   result = generateResult(firstOperand, secondOperand, operator);
 };
+
+const findExactPlace = (arr, currentScore) => {
+  let index = -1;
+  for (const [idx, value] of arr.entries()) {
+    if (value >= currentScore) {
+      index = idx;
+    } else {
+      break;
+    }
+  }
+
+  return index;
+};
