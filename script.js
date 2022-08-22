@@ -1,68 +1,26 @@
 'use strict';
 
 let highscore = [...defaultData];
-const timerElement = document.querySelector('.timer');
-const buttonPlay = document.querySelector('.btn-play');
-const playGameSection = document.querySelector('.play-game');
-const questionMarkEl = document.querySelector('#questionMark');
-const questionFieldEl = document.querySelector('#questionField');
-const finalScoreEl = document.querySelector('#finalScore');
-const finalScoreParentEl = document.querySelector('.finalScoreParent');
-const firstOperandEl = document.querySelector('#first--operand');
-const secondOperandEl = document.querySelector('#second--operand');
-const operatorEl = document.querySelector('#operator');
-const checkButton = document.querySelector('.check');
-const answerEl = document.querySelector('.answer');
-const messageEl = document.querySelector('.message');
-const scoreEl = document.querySelector('.score');
-const formHighScoreEl = document.querySelector('#form-highscore');
-const highscoreUserEl = document.querySelector('#highscoreUser');
-const submitBtnEl = document.querySelector('#submit-btn');
-const DEFAULT_OPERATOR = ['+', '-', 'x'];
-
-const generateOperand = () => {
-  return Math.trunc(Math.random() * 9 + 1);
-};
-
-const generateOperatorIndex = () => {
-  return Math.trunc(Math.random() * 3);
-};
-
-const generateResult = (firstOperand, secondOperand, operator) => {
-  if (operator === '+') return firstOperand + secondOperand;
-  else if (operator === '-') return firstOperand - secondOperand;
-  else if (operator === 'x') return firstOperand * secondOperand;
-};
-
-const generateQuestion = () => {
-  firstOperand = generateOperand();
-  secondOperand = generateOperand();
-  operator = DEFAULT_OPERATOR[generateOperatorIndex()];
-
-  firstOperandEl.textContent = firstOperand;
-  secondOperandEl.textContent = secondOperand;
-  operatorEl.textContent = operator;
-
-  result = generateResult(firstOperand, secondOperand, operator);
-};
 
 const endGame = () => {
-  questionFieldEl.classList.add('hidden');
-  finalScoreParentEl.classList.remove('hidden');
+  hideElement(questionFieldEl);
+  toggleElement(finalScoreParentEl);
   finalScoreEl.textContent = currentScore;
   messageEl.textContent = '💥 Times up!!!';
 
-  index = highscore.findIndex(({ score }) => score === currentScore);
-  higher = index === -1 && currentScore > highscore[0].score;
-  ((index !== -1 && index !== 4) || higher) &&
-    formHighScoreEl.classList.toggle('hidden');
+  index = highscore.findIndex(({ score }) => currentScore === score);
+  higher = index === -1 && currentScore > highscore[4].score;
+  ((index !== -1 && index !== 4) || higher) && toggleElement(formHighScoreEl);
 };
 
 const playGame = () => {
-  questionMarkEl.classList.toggle('hidden');
-  questionFieldEl.classList.toggle('hidden');
-  buttonPlay.classList.toggle('hidden');
-  playGameSection.classList.toggle('hidden');
+  timer = 10;
+  currentScore = 0;
+  scoreEl.textContent = 0;
+  answerEl.value = '';
+  finalScoreEl.textContent = currentScore;
+  hideElement(finalScoreParentEl, questionMarkEl, buttonPlay);
+  showElement(questionFieldEl, playGameSection);
 
   let interval = setInterval(() => {
     timer--;
@@ -92,7 +50,6 @@ const checkingAnswer = () => {
 };
 
 const checkingUsername = e => {
-  console.log(e.key);
   e.preventDefault();
   const name = highscoreUserEl.value;
 
@@ -108,10 +65,11 @@ const checkingUsername = e => {
   }
 
   highscoreUserEl.value = '';
-  formHighScoreEl.classList.toggle('hidden');
+  toggleElement(formHighScoreEl);
 };
 
 buttonPlay.addEventListener('click', playGame);
+againBtnEl.addEventListener('click', playGame);
 checkButton.addEventListener('click', checkingAnswer);
 formHighScoreEl.addEventListener('submit', checkingUsername);
 document.addEventListener('keydown', e => {
