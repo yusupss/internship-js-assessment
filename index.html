@@ -11,22 +11,30 @@
     <header>
       <h1>Do The Math!</h1>
       <button class="btn again">Again!</button>
-      <div class="number">start</div>
+      <div class="question btn">Start!</div>
     </header>
     <main>
       <section class="left">
-        <input type="number" class="guess" />
+        <input type="number" class="input guess" />
         <button class="btn check">Check!</button>
       </section>
-      <section class="right">
-        <p class="message">Start guessing...</p>
-        <p class="label-time">⌚ Time Left: <span class="time">20</span></p>
-        <p class="label-score">💯 Score <span class="score">0</span></p>
+      <section class="mid">
+        <section class="result hidden">
+          <p>New Highscore!</p>
+          <p>Please enter your name:</p>
+          <input type="text" class="input name" />
+          <button class="btn submit">Submit</button>
+        </section>
+        <section>
+          <p class="message">Start Guessing...</p>
+          <p class="label-time">⌚ Time Left: <span class="time">20</span></p>
+          <p class="label-score">💯 Score: <span class="score">0</span></p>
+        </section>
       </section>
       <section class="right">
         <p class="label-highscore">Highscore...</p>
         <ol class="highscore">
-          <li value="1"></li>
+          <li></li>
           <li></li>
           <li></li>
           <li></li>
