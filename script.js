@@ -12,6 +12,9 @@ let timeLeft = 20;
 let result = 0;
 let score = 0;
 
+let input = document.querySelector('.guess');
+let button = document.querySelector('.check');
+
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -28,23 +31,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
     compute();
     let countdown = setInterval(function() {
         timeLeft--;
-        document.querySelector('.check').addEventListener('click', function () {
+
+        input.addEventListener('keyup', e => {
+            e.preventDefault();
+            if (e.keyCode === 13) {
+                button.click();
+            };
+        });
+
+        button.addEventListener('click', () => {
             const guess = Number(document.querySelector('.guess').value);
 
             if (guess == result) {
                 score++;
                 document.querySelector('.score').textContent = score;
+                document.querySelector('.guess').value = '';
                 compute();
-            }
+            };
         });
 
         document.getElementById("time").textContent = timeLeft;
         if (timeLeft <= 0) {
             clearInterval(countdown);
-        }
+        };
         if (timeLeft == 0) {
             document.querySelector('.message').textContent = '💥Times up!!!';
-        }
+        };
     }, 1000);
 });
 
