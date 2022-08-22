@@ -29,7 +29,8 @@ let timer,
   operator,
   result,
   index,
-  higher;
+  higher,
+  highscore;
 
 const timerElement = document.querySelector('.timer');
 const buttonPlay = document.querySelector('.btn-play');
