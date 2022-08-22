@@ -54,14 +54,14 @@ const displayMessage = function (message) {
 };
 
 const randomize = function (number) {
-  return Math.trunc(Math.random() * number);
+  return Math.trunc(Math.random() * number) + 1;
 };
 
 const generateQuestion = function () {
-  const num1 = randomize(10);
-  const num2 = randomize(10);
+  const num1 = randomize(9);
+  const num2 = randomize(9);
   const listOperation = ['+', '-', 'x'];
-  const operation = listOperation[randomize(3)];
+  const operation = listOperation[randomize(3) - 1];
   let answer;
 
   if (operation === '+') {
@@ -109,6 +109,7 @@ const start = function () {
 
     questionEl.classList.remove('btn');
     questionEl.style.width = '32rem';
+    questionEl.removeEventListener('click', start);
     resultEl.classList.add('hidden');
     scoreEl.textContent = score;
     guessEl.value = '';
