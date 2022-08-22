@@ -14,10 +14,11 @@ const endGame = () => {
 };
 
 const playGame = () => {
-  timer = 10;
+  timer = 20;
   currentScore = 0;
   scoreEl.textContent = 0;
   answerEl.value = '';
+  messageEl.textContent = 'Start guessing...';
   finalScoreEl.textContent = currentScore;
   hideElement(finalScoreParentEl, questionMarkEl, buttonPlay);
   showElement(questionFieldEl, playGameSection);
