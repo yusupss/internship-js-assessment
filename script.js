@@ -15,6 +15,8 @@ let scoreboard = '';
 let highScore = 5;
 let countdownStarted = false;
 let highestScore = true;
+let userExist = false;
+let userExistValue = 0;
 let sortedDesc = new Map();
 let inputNumber = document.querySelector('.guess');
 let timer = document.getElementById("time");
@@ -99,6 +101,24 @@ function checkResult() {
     }
 };
 
+function checkSubmit() {
+    scoreMap.set(user.value, score);
+    user.value = '';
+    scoreboard = '';
+    rank = 1;
+
+    sortedDesc = [...scoreMap].sort((a, b) => (a[1] > b[1] ? -1 : 1));
+
+    sortedDesc.forEach((value) => {
+        if (rank > 5) {
+            return;
+        }
+        scoreboard += `<p class="score-board">${rank}. ${value[0]}... <span class="score">${value[1]}</span></p><br>`;
+        rank++;
+    });
+    document.getElementById('score-board').innerHTML = scoreboard;
+};
+
 checkButton.addEventListener('click', () => {
     checkResult();
 });
@@ -122,21 +142,13 @@ restartButton.addEventListener('click', () => {
 });
 
 submitButton.addEventListener('click', () => {
-    scoreMap.set(user.value, score);
-    user.value = '';
-    scoreboard = '';
-    rank = 1;
+    checkSubmit();
+});
 
-    sortedDesc = [...scoreMap].sort((a, b) => (a[1] > b[1] ? -1 : 1));
-
-    sortedDesc.forEach((value) => {
-        if (rank > 5) {
-            return;
-        }
-        scoreboard += `<p class="score-board">${rank}. ${value[0]}... <span class="score">${value[1]}</span></p><br>`;
-        rank++;
-    });
-    document.getElementById('score-board').innerHTML = scoreboard;
+inputName.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+        checkSubmit();
+    }
 });
 
 compute();
