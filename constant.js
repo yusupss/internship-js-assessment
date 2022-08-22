@@ -21,8 +21,31 @@ const defaultData = [
   },
 ];
 
-let timer = 20;
-let currentScore = 0;
-let firstOperand, secondOperand, operator, result;
-let index;
-let higher;
+const DEFAULT_OPERATOR = ['+', '-', 'x'];
+let timer,
+  currentScore,
+  firstOperand,
+  secondOperand,
+  operator,
+  result,
+  index,
+  higher;
+
+const timerElement = document.querySelector('.timer');
+const buttonPlay = document.querySelector('.btn-play');
+const playGameSection = document.querySelector('.play-game');
+const questionMarkEl = document.querySelector('#questionMark');
+const questionFieldEl = document.querySelector('#questionField');
+const finalScoreEl = document.querySelector('#finalScore');
+const finalScoreParentEl = document.querySelector('.finalScoreParent');
+const firstOperandEl = document.querySelector('#first--operand');
+const secondOperandEl = document.querySelector('#second--operand');
+const operatorEl = document.querySelector('#operator');
+const checkButton = document.querySelector('.check');
+const answerEl = document.querySelector('.answer');
+const messageEl = document.querySelector('.message');
+const scoreEl = document.querySelector('.score');
+const formHighScoreEl = document.querySelector('#form-highscore');
+const highscoreUserEl = document.querySelector('#highscoreUser');
+const submitBtnEl = document.querySelector('#submit-btn');
+const againBtnEl = document.querySelector('.again');
