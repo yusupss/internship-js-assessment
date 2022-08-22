@@ -1,27 +1,15 @@
 'use strict';
 
-const endGame = () => {
-  hideElement(questionFieldEl);
-  toggleElement(finalScoreParentEl);
-  finalScoreEl.textContent = currentScore;
-  messageEl.textContent = '💥 Times up!!!';
-
-  console.log(highscore, currentScore);
-  index = highscore.lastIndexOf(currentScore);
-  console.log(index);
-  higher = index === -1 && currentScore > highscore[4];
-  ((index !== -1 && index !== 4) || higher) && toggleElement(formHighScoreEl);
-};
-
 const playGame = () => {
   highscore = defaultData.map(({ score }) => score);
-  timer = 10;
+  timer = 20;
   currentScore = 0;
   scoreEl.textContent = 0;
   answerEl.value = '';
   messageEl.textContent = 'Start guessing...';
-  finalScoreEl.textContent = currentScore;
-  hideElement(finalScoreParentEl, questionMarkEl, buttonPlay);
+  finalScoreParentEl.textContent = currentScore;
+  finalScoreParentEl.classList.remove('showup', 'mixColor');
+  hideElement(finalScoreParentEl, questionMarkEl, buttonPlay, bestPlayerEl);
   showElement(questionFieldEl, playGameSection);
 
   let interval = setInterval(() => {
@@ -34,6 +22,19 @@ const playGame = () => {
   }, 1000);
 
   generateQuestion();
+};
+
+const endGame = () => {
+  hideElement(questionFieldEl);
+  toggleElement(finalScoreParentEl);
+
+  finalScoreParentEl.textContent = `Your Score is ${currentScore}`;
+  messageEl.textContent = '💥 Times up!!!';
+
+  index = findExactPlace(highscore, currentScore);
+  isHighest = index === -1 && currentScore > highscore[0];
+
+  index !== 4 && toggleElement(formHighScoreEl);
 };
 
 const checkingAnswer = () => {
@@ -55,7 +56,7 @@ const checkingUsername = e => {
   e.preventDefault();
   const name = highscoreUserEl.value;
 
-  if ((index !== -1 && index !== 4) || higher) {
+  if (index !== 4) {
     const newUser = { name, score: currentScore };
     defaultData.splice(index + 1, 0, newUser);
     defaultData.pop();
@@ -66,6 +67,16 @@ const checkingUsername = e => {
     }
   }
 
+  finalScoreParentEl.textContent = isHighest
+    ? `🥳🎉 CONGRATULATIONS 🥳🎉`
+    : finalScoreParentEl.textContent;
+
+  if (isHighest) {
+    hideElement(questionFieldEl, playGameSection);
+    showElement(bestPlayerEl);
+    bestPlayerNameEl.textContent = `${name.toUpperCase()}!`;
+    finalScoreParentEl.classList.add('showup', 'mixColor');
+  }
   highscoreUserEl.value = '';
   toggleElement(formHighScoreEl);
 };
