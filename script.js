@@ -149,6 +149,12 @@ const updateArrayLatest = (rank) => {
 
     if (typeof rank === "number") {
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
+
+        initialData.map((data, index)=> {
+            if (index >= findIndex) {
+                data.rank += 1;
+            }
+        })
         // console.log("before: " + initialData.toString());
 
         initialData.splice(findIndex, 0, {
