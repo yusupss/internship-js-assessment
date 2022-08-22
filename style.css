@@ -102,3 +102,82 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield; /* Firefox */
 }
+
+.bestPlayerTitle {
+  animation: blip 1s ease-out infinite;
+}
+
+@keyframes blip {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.showup {
+  animation: showup 1s ease-out 1;
+}
+
+@keyframes showup {
+  0% {
+    opacity: 0;
+    scale: 0;
+    background: #222;
+  }
+  25% {
+    opacity: 0.25;
+    scale: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+    scale: 0.5;
+    background: gray;
+  }
+  75% {
+    opacity: 0.75;
+    scale: 0.75;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+    background: #eee
+  }
+}
+
+.mixColor {
+  animation: mixColor 1s ease-in-out infinite;
+}
+
+@keyframes mixColor {
+  0% {
+    background: #7B113A;
+    color: whitesmoke;
+  }
+  25% {
+    background: #150E56;
+    color: gray;
+  }
+  50% {
+    background: #1597BB;
+    color: #F0A500;
+  }
+  75% {
+    background: #8FD6E1;
+    color: #CF7500;
+  }
+  100% {
+    background: #A5BECC;
+    color: #1A1C20;
+  }
+}
