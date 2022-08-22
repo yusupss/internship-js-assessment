@@ -5,7 +5,7 @@ const scoreMap = new Map([
     ["Alvian", 4],
     ["Fajar", 3],
     ["Rahmat", 2],
-    ["Leo", 1],
+    ["Leo", 2],
 ]);
 
 let result = 0;
@@ -109,7 +109,7 @@ inputNumber.addEventListener('keyup', (e) => {
     }
 });
 
-restartButton.addEventListener('click', function () {
+restartButton.addEventListener('click', () => {
     inputNumber.value = '';
     message.textContent = 'Start guessing...';
     content.style.width = '30rem';
