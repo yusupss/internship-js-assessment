@@ -12,8 +12,10 @@ let timeLeft = 20;
 let result = 0;
 let score = 0;
 
-let input = document.querySelector('.guess');
-let button = document.querySelector('.check');
+const content = document.querySelector(".content");
+const inputNumber = document.querySelector('.guess');
+const buttonCheck = document.querySelector('.check');
+const message = document.querySelector('.message');
 
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -21,8 +23,8 @@ function getRandomInt (min, max) {
 
 function compute() {
     const operators = ["+", "-", "*", "÷"];
-    document.querySelector(".number").innerHTML = (Math.trunc(Math.random() * 10) + 1) + operators[getRandomInt(0,3)] + (Math.trunc(Math.random() * 10) + 1);
-    result = eval(document.querySelector(".number").textContent);
+    content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + operators[getRandomInt(0,3)] + (Math.trunc(Math.random() * 10) + 1);
+    result = eval(document.querySelector(".content").textContent);
 
     return result;
 };
@@ -32,14 +34,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let countdown = setInterval(function() {
         timeLeft--;
 
-        input.addEventListener('keyup', e => {
+        inputNumber.addEventListener('keyup', e => {
             e.preventDefault();
             if (e.keyCode === 13) {
                 button.click();
             };
         });
 
-        button.addEventListener('click', () => {
+        buttonCheck.addEventListener('click', () => {
             const guess = Number(document.querySelector('.guess').value);
 
             if (guess == result) {
@@ -55,7 +57,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             clearInterval(countdown);
         };
         if (timeLeft == 0) {
-            document.querySelector('.message').textContent = '💥Times up!!!';
+            message.textContent = '💥Times up!!!';
+            content.innerHTML = `Your Score is ${score}`;
+            content.style.width = "100rem";
         };
     }, 1000);
 });

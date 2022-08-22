@@ -13,7 +13,7 @@
     <header>
         <h1>Do The Math!</h1>
         <button class="btn again">Again!</button>
-        <div class="number">?</div>
+        <div class="content">?</div>
     </header>
     <main>
         <section class="left">
@@ -21,6 +21,14 @@
             <button class="btn check" id="check">Check!</button>
         </section>
         <section class="middle">
+            <div class="inputName" hidden>
+                <p class="label-input-name">Please enter your name!</p>
+                <br>
+                <input type="text" class="name" />
+                <button class="btn submit" id="submit">Submit</button>
+                <br><br>
+            </div>
+
             <p class="message">Start guessing...</p>
             <p class="label-score">⏳ Time left: <span id="time">20</span></p>
             <p class="label-score">
