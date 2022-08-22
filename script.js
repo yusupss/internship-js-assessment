@@ -1,26 +1,16 @@
 'use strict';
-/*console.log(document.querySelector('.message').textContent);
 
-document.querySelector('.message').textContent = 'Correct Number!';
-
-document.querySelector('.number').textContent = 7;
-document.querySelector('.score').textContent = 10;
-
-console.log(document.querySelector('.guess').value);
-document.querySelector('.guess').value = 23;*/
 const highScore = document
   .querySelector('.highscore')
   .getElementsByTagName('li');
 const guessEl = document.querySelector('.guess');
 const messageEl = document.querySelector('.message');
 const btnCheckEl = document.querySelector('.check');
+const btnAgainEl = document.querySelector('.again');
+const scoreEl = document.querySelector('.score');
 let time = document.querySelector('.time');
 let questionEl = document.querySelector('.question');
-let question, answer, isPlaying;
-
-function randomize(number) {
-  return Math.trunc(Math.random() * number) + 1;
-}
+let question, answer, isPlaying, score;
 
 const players = [
   {
@@ -55,12 +45,17 @@ const displayMessage = function (message) {
   messageEl.textContent = message;
 };
 
+const randomize = function (number) {
+  return Math.trunc(Math.random() * number);
+};
+
 const generateQuestion = function () {
-  const num1 = randomize(9);
-  const num2 = randomize(9);
+  const num1 = randomize(10);
+  const num2 = randomize(10);
   const listOperation = ['+', '-', 'x'];
-  const operation = listOperation[randomize(2)];
+  const operation = listOperation[randomize(3)];
   let answer;
+
   if (operation === '+') {
     answer = num1 + num2;
   } else if (operation === '-') {
@@ -68,20 +63,22 @@ const generateQuestion = function () {
   } else {
     answer = num1 * num2;
   }
-  const question = `${num1} ${operation} ${num2}`;
 
+  const question = `${num1} ${operation} ${num2}`;
   return { question, answer };
 };
 
 const start = function () {
   if (!isPlaying) {
-    let timeLeft = Number(time.textContent) - 1;
+    let timeLeft = 20;
     let timerId = setInterval(timer, 1000);
+    score = 0;
     isPlaying = true;
+    questionEl.classList.remove('btn');
 
     function timer() {
       console.log(timeLeft);
-      if (timeLeft === -1) {
+      if (timeLeft === 0) {
         isPlaying = false;
         clearInterval(timerId);
       } else {
@@ -92,7 +89,6 @@ const start = function () {
     ({ question, answer } = generateQuestion());
     questionEl.textContent = question;
     questionEl.style.pointerEvents = 'none';
-    console.log(question, answer);
   }
 };
 
@@ -100,7 +96,10 @@ const checkAnswer = function () {
   if (isPlaying) {
     const guess = Number(guessEl.value);
     if (answer === guess) {
+      score++;
+      scoreEl.textContent = score;
       displayMessage('Correct Answer! Answer Next!');
+
       ({ question, answer } = generateQuestion());
       questionEl.textContent = question;
     } else {
@@ -111,6 +110,7 @@ const checkAnswer = function () {
 
 questionEl.addEventListener('click', start);
 btnCheckEl.addEventListener('click', checkAnswer);
+btnAgainEl.addEventListener('click', start);
 
 displayHighscore(players);
 // let score = 20;
