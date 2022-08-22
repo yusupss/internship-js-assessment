@@ -29,7 +29,7 @@ let timer,
   operator,
   result,
   index,
-  higher,
+  isHighest,
   highscore;
 
 const timerElement = document.querySelector('.timer');
@@ -50,3 +50,5 @@ const formHighScoreEl = document.querySelector('#form-highscore');
 const highscoreUserEl = document.querySelector('#highscoreUser');
 const submitBtnEl = document.querySelector('#submit-btn');
 const againBtnEl = document.querySelector('.again');
+const bestPlayerNameEl = document.querySelector('#bestPlayerName');
+const bestPlayerEl = document.querySelector('#bestPlayer');
