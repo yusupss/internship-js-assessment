@@ -13,46 +13,91 @@
       <h1 class="text-center absolute text-5xl">Do the Math!</h1>
       <button class="btn again">Again!</button>
 
+      <div class="number hidden text-6xl finalScoreParent w-[70rem]">
+        Your Score is <span id="finalScore"></span>
+      </div>
+
       <div class="number flex justify-center gap-8 hidden" id="questionField">
-        <span class="first--operand">3</span>
-        <span class="operator">+</span>
-        <span class="second--operand">4</span>
+        <span id="first--operand">3</span>
+        <span id="operator">+</span>
+        <span id="second--operand">4</span>
       </div>
 
       <div class="number" id="questionMark">?</div>
     </header>
 
     <main class="flex justify-center gap-5 text-3xl items-center">
-			<button class="btn bg-blue-600 rounded-lg text-white hover:bg-blue-700 btn-play">Play</button>
+      <button
+        class="btn bg-blue-600 rounded-lg text-white hover:bg-blue-700 btn-play"
+      >
+        Play
+      </button>
 
-      <div class="play-game hidden flex justify-around gap-40 mt-10"> <!-- ambil class play-game -->
+      <div class="play-game hidden flex justify-around gap-32 mt-20">
+        <!-- ambil class play-game -->
         <section class="p-3 flex flex-col gap-5 justify-center items-center">
-          <input type="number" class="guess" />
+          <input type="number" class="answer" />
           <button class="btn check">Check!</button>
         </section>
 
-        <section class="p-3">
-          <p class="message">Start guessing...</p>
-          <p class="label-score">
-            ⌛ Time Left: <span class="score timer">20</span>
-          </p>
-          <p class="label-score">💯 Score: <span class="score">20</span></p>
+        <section class="p-3 mt-10">
+          <form
+            class="hidden flex flex-col gap-8 mb-6 items-left"
+            id="form-highscore"
+          >
+            <div>
+              <p>New Highscore!!!</p>
+              <p>Please Enter your Name:</p>
+              <input
+                type="text"
+                name="highscoreUser"
+                id="highscoreUser"
+                class="p-5 py-10 text-center bg-[#222] border-4 border-white text-4xl"
+              />
+            </div>
+
+            <div>
+              <button type="submit" class="btn bg-[#eee]" id="submit-btn">Submit</button>
+            </div>
+          </form>
+
+          <p class="message mb-20">Start guessing...</p>
+          <p class="label-score">⌛ Time Left: <span class="timer">20</span></p>
+          <p class="label-score">💯 Score: <span class="score">0</span></p>
         </section>
 
-        <section class="w-[35rem] flex flex-col gap-20 p-3">
-          <p class="label-highscore">🥇 Highscore...</p>
+        <section
+          class="w-[40rem] flex flex-col gap-16 p-5 border-2 border-dashed rounded-xl text-center"
+        >
+          <p class="label-highscore">Highscore...</p>
 
-          <div class="list-highscore flex flex-col justify-center">
-            <p class="mb-10">1. Alfa ... 5</p>
-            <p class="mb-10">2. Beta ... 4</p>
-            <p class="mb-10">3. Charlie ... 3</p>
-            <p class="mb-10">4. Gamma ... 2</p>
-            <p class="mb-10">5. Theta ... 1</p>
+          <div class="flex flex-col gap-10 justify-center text-left">
+            <p>
+              1. 🥇 <span id="best-player-0">Alfa</span> ...
+              <span id="best-highscore-0">5</span>
+            </p>
+            <p>
+              2. 🥈 <span id="best-player-1">Beta</span> ...
+              <span id="best-highscore-1">4</span>
+            </p>
+            <p>
+              3. 🥉 <span id="best-player-2">Charlie</span> ...
+              <span id="best-highscore-2">3</span>
+            </p>
+            <p>
+              4. <span id="best-player-3">Gamma</span> ...
+              <span id="best-highscore-3">2</span>
+            </p>
+            <p>
+              5. <span id="best-player-4">Theta</span> ...
+              <span id="best-highscore-4">1</span>
+            </p>
           </div>
         </section>
       </div>
     </main>
 
+    <script src="constant.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
