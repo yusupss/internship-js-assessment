@@ -35,19 +35,28 @@ let operatorData = ['+', '-', '*'];
 let message = document.querySelector('.message');
 let secondNumber;
 let resultOperation;
+let interval;
+let isLose;
+let currScore;
+let latestRank;
 
 const tbody = document.querySelector('.table-content');
 const timeLeft = document.querySelector('.time-left');
 const firstNumberEl = document.getElementById('first-number');
 const operatorEl = document.getElementById('operator');
 const secondNumberEl = document.getElementById('second-number');
+const submitHighScoreEl = document.getElementById('new-highscore');
+const btnSubmitHighScoreEl = document.getElementById('btn-submit-highscore');
 
 const startTimer = () => {
-    timeLeft.innerText = 20;
+    timeLeft.innerText = 5;
     let value = parseInt(timeLeft.innerText);
-    let interval = setInterval(()=> {
+    interval = setInterval(()=> {
         if (value <= 0) {
             clearInterval(interval);
+            isLose = true;
+            message.innerText = "You lost the game!"
+            checkScore();
             return;
         }
         value -= 1;
@@ -102,6 +111,52 @@ const getResult = (a, operator, b) => {
     }
 }
 
+const checkScore = () => {
+    latestRank = null;
+
+    let sortedByLowRank = initialData.sort((a, b)=>a.score - b.score);
+
+    sortedByLowRank.map((data)=>{
+        currScore >= data.score ? latestRank = data.rank : null;
+    });
+    
+    if (typeof latestRank === "number") {
+        submitHighScoreEl.classList.toggle('hidden');
+    }
+}
+
+btnSubmitHighScoreEl.addEventListener('click', ()=> updateArrayLatest(latestRank));
+
+const updateArrayLatest = (rank) => {
+    let findIndex;
+
+    initialData = initialData.sort((a, b)=> a.rank - b.rank);
+    
+    initialData.map((data, index)=> {
+        if (data.rank == rank) {
+            findIndex = index;
+            return;
+        }
+    })
+
+    console.log("Find Index: " + findIndex)
+
+    if (typeof rank === "number") {
+        initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex + 1, initialData.length)];
+        initialData = initialData.sort((a, b)=> a.rank - b.rank);
+        // console.log("before: " + initialData.toString());
+        initialData.splice(findIndex, 0, {
+            rank: latestRank,
+            name: document.getElementById("input-highscore").value,
+            score: currScore
+        });
+        // console.log("after: " + initialData.toString());
+        initialData = initialData.sort((a, b)=> a.rank - b.rank);
+        refreshHighScore();
+        latestRank = null;
+    }
+}
+
 const init = () => {
     startTimer();
     refreshHighScore();
@@ -128,37 +183,31 @@ const changeBackground = (color) => {
 
 document.querySelector(".check").addEventListener('click', function() {
     let score = document.querySelector(".score").innerText;
-    
-    let isCorrect = false;
+    currScore = parseInt(score);
 
     if (!inputVal) {
         displayMessage("Enter valid number");
         return;
     }
 
-    if (score => 0) {
+    if (!isLose) {
         if (parseInt(inputVal.value) == parseInt(resultOperation)) {
             displayMessage("Correct Number! Congrats!")
-            isCorrect = true;
-            numberBanner.innerText = res;
-
-            // handle highscore
-            changeBackground("green") 
-            document.querySelector(".score").innerText = parseInt(score) + 1;
-
-            if (parseInt(document.querySelector(".score").innerText) > parseInt(highScore.innerText)) {
-                highScore.innerText = document.querySelector(".score").innerText;
-            }
+            currScore += 1;
+            document.querySelector(".score").innerText = currScore.toString();
+            console.log("adsffadfsadwf " +  document.querySelector(".score").innerText);
+            refreshQuestions();
+            // clearInterval(interval);
+            // startTimer();
         } else if (parseInt(inputVal.value) !== parseInt(res)) {
-            displayMessage(parseInt(inputVal.value) > parseInt(res) ? "Too High" : "Too Low");
-            score = parseInt(score) - 1;
-            document.querySelector(".score").innerText = score;
-            changeBackground("#222")
-            numberBanner.innerText = "?"
+            displayMessage("Wrong answer, try again");
+            refreshQuestions();
+            // currScore -= 1;
+            // score > 0 ? document.querySelector(".score").innerText = currScore : isLose = true;
+            // clearInterval(interval);
+            // startTimer();
         } 
-    } else {
-        message.innerText = "You lost the game!"
-    }
+    } 
 })
 
 document.querySelector(".again").addEventListener("click", function() {
