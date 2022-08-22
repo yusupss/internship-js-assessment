@@ -4,13 +4,16 @@ const highScore = document
   .querySelector('.highscore')
   .getElementsByTagName('li');
 const guessEl = document.querySelector('.guess');
+const resultEl = document.querySelector('.result');
 const messageEl = document.querySelector('.message');
 const btnCheckEl = document.querySelector('.check');
 const btnAgainEl = document.querySelector('.again');
+const btnSubmitEl = document.querySelector('.submit');
 const scoreEl = document.querySelector('.score');
+const nameEl = document.querySelector('.name');
 let time = document.querySelector('.time');
 let questionEl = document.querySelector('.question');
-let question, answer, isPlaying, score;
+let question, answer, isPlaying, score, hasWrittenName;
 
 const players = [
   {
@@ -37,7 +40,7 @@ const players = [
 
 const displayHighscore = function (arr) {
   for (let i = 0; i < 5; i++) {
-    highScore[i].textContent = `${arr[i].name} ... ${arr[i].score}`;
+    highScore[i].textContent = `${i + 1}. ${arr[i].name} ... ${arr[i].score}`;
   }
 };
 
@@ -68,23 +71,41 @@ const generateQuestion = function () {
   return { question, answer };
 };
 
+const showResult = function () {
+  isPlaying = false;
+  displayMessage("💣 Time's up!");
+  questionEl.textContent = `You're Score is ${score}`;
+  questionEl.style.width = '90rem';
+  if (score > players[4].score) resultEl.classList.remove('hidden');
+};
+
+const startTimer = function () {
+  let timeLeft = 2;
+  let timerId = setInterval(timer, 1000);
+  time.textContent = timeLeft;
+
+  function timer() {
+    console.log(timeLeft);
+    if (timeLeft === 0) {
+      clearInterval(timerId);
+      showResult();
+    }
+    time.textContent = timeLeft--;
+  }
+};
+
 const start = function () {
   if (!isPlaying) {
-    let timeLeft = 20;
-    let timerId = setInterval(timer, 1000);
-    score = 0;
+    score = 2;
     isPlaying = true;
+    hasWrittenName = false;
     questionEl.classList.remove('btn');
+    questionEl.style.width = '32rem';
+    resultEl.classList.add('hidden');
+    guessEl.value = '';
 
-    function timer() {
-      console.log(timeLeft);
-      if (timeLeft === 0) {
-        isPlaying = false;
-        clearInterval(timerId);
-      } else {
-        time.textContent = timeLeft--;
-      }
-    }
+    displayMessage('Start Guessing...');
+    startTimer();
 
     ({ question, answer } = generateQuestion());
     questionEl.textContent = question;
@@ -96,68 +117,35 @@ const checkAnswer = function () {
   if (isPlaying) {
     const guess = Number(guessEl.value);
     if (answer === guess) {
+      console.log(score);
       score++;
       scoreEl.textContent = score;
-      displayMessage('Correct Answer! Answer Next!');
+      displayMessage('✅ Correct Answer! Answer Next!');
 
       ({ question, answer } = generateQuestion());
       questionEl.textContent = question;
     } else {
-      displayMessage('Wrong answer!');
+      displayMessage('❌ Wrong answer!');
     }
+  }
+};
+
+const addNewHighscore = function () {
+  if (!hasWrittenName) {
+    const name = nameEl.value;
+    players.push({ name: name, score: score });
+    const sorter = (a, b) => {
+      return b['score'] - a['score'];
+    };
+    players.sort(sorter);
+    displayHighscore(players);
+    hasWrittenName = true;
   }
 };
 
 questionEl.addEventListener('click', start);
 btnCheckEl.addEventListener('click', checkAnswer);
 btnAgainEl.addEventListener('click', start);
+btnSubmitEl.addEventListener('click', addNewHighscore);
 
 displayHighscore(players);
-// let score = 20;
-// let highScore = score;
-
-// const displayMessage = function (message) {
-//   document.querySelector('.message').textContent = message;
-// };
-
-// document.querySelector('.check').addEventListener('click', function () {
-//   const guess = Number(document.querySelector('.guess').value);
-//   console.log(guess);
-
-//   if (!guess) {
-//     displayMessage('⛔️ No number!');
-//   } else if (guess === answer) {
-//     document.querySelector('.number').textContent = secretNumber;
-//     displayMessage('Correct Answer! Answer Next!');
-//     document.querySelector('.number').style.width = '30rem';
-//     document.querySelector('body').style.backgroundColor = '#60b347';
-//     document.querySelector('.check').disabled = true;
-//     score += 10;
-//     document.querySelector('.highscore').textContent =
-//       score > highScore ? score : highScore;
-//   } else {
-//     if (score === 1) {
-//       displayMessage('💥You Lost the Game!');
-//       document.querySelector('.check').disabled = true;
-//       document.querySelector('body').style.backgroundColor = '#FE0000';
-//     } else {
-//       displayMessage(guess > secretNumber ? '📈 Too high!' : '📉 Too low!');
-//     }
-//     score = score > 1 ? score - 1 : 0;
-//   }
-
-//   document.querySelector('.score').textContent = score;
-// });
-
-// document.querySelector('.again').addEventListener('click', function () {
-//   secretNumber = Math.floor(Math.random() * 19) + 1;
-//   score = 20;
-
-//   document.querySelector('.number').textContent = '?';
-//   displayMessage('Start Guessing...');
-//   document.querySelector('.number').style.width = '15rem';
-//   document.querySelector('body').style.backgroundColor = '#222';
-//   document.querySelector('.check').disabled = false;
-//   document.querySelector('.guess').value = '';
-//   document.querySelector('.score').textContent = score;
-// });
