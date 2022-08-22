@@ -30,6 +30,7 @@ const submitButton = document.querySelector('.submit');
 const restartButton = document.querySelector('.again');
 const highestScoreLabel = document.querySelector('.label-highest-score');
 
+// For showing first scoreboard in web
 scoreMap.forEach((value, key) => {
     scoreboard += `<p class="score-board">${rank}. ${key}... <span class="score">${value}</span></p><br>`;
     rank++;
@@ -37,10 +38,12 @@ scoreMap.forEach((value, key) => {
 
 document.getElementById('score-board').innerHTML = scoreboard;
 
+// Function to randomizer for operator
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+// Function to make the expression math
 function compute() {
     const operators = ["+", "-", "*"];
     content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + operators[getRandomInt(0,2)] + (Math.trunc(Math.random() * 10) + 1);
@@ -49,6 +52,7 @@ function compute() {
     return result;
 };
 
+// Function to calculate the countdown
 function counter(timeLeft) {
     if (!countdownStarted) {
         compute();
@@ -80,6 +84,7 @@ function counter(timeLeft) {
     }
 };
 
+// Function to checking the result of guess number and expression math result
 function checkResult() {
     const guess = parseInt(document.querySelector('.guess').value);
     if (guess == result) {
