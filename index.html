@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link rel="stylesheet" href="style.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-		<title>Do the Math!</title>
-	</head>
-	<body>
-		<header>
-			<h1>Do the Math!</h1>
-			<p class="between">(Between 1 and 20)</p>
-			<button class="btn again">Again!</button>
-			<div class="number">
+    <title>Do the Math!</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="text-center absolute text-5xl">Do the Math!</h1>
+      <button class="btn again">Again!</button>
+
+      <div class="number flex justify-center gap-8 hidden" id="questionField">
         <span class="first--operand">3</span>
         <span class="operator">+</span>
         <span class="second--operand">4</span>
       </div>
-      <div class="number hidden">?</div>
-		</header>
-		<main>
-			<section class="left">
-				<input type="number" class="guess" />
-				<button class="btn check">Check!</button>
-			</section>
-			<section class="right">
-				<p class="message">Start guessing...</p>
-				<p class="label-score">💯 Score: <span class="score">20</span></p>
-				<p class="label-highscore">
-					🥇 Highscore: <span class="highscore">0</span>
-				</p>
-			</section>
-		</main>
-		<script src="script.js"></script>
-	</body>
+
+      <div class="number" id="questionMark">?</div>
+    </header>
+
+    <main class="flex justify-center gap-5 text-3xl items-center">
+			<button class="btn bg-blue-600 rounded-lg text-white hover:bg-blue-700 btn-play">Play</button>
+
+      <div class="play-game hidden flex justify-around gap-40 mt-10"> <!-- ambil class play-game -->
+        <section class="p-3 flex flex-col gap-5 justify-center items-center">
+          <input type="number" class="guess" />
+          <button class="btn check">Check!</button>
+        </section>
+
+        <section class="p-3">
+          <p class="message">Start guessing...</p>
+          <p class="label-score">
+            ⌛ Time Left: <span class="score timer">20</span>
+          </p>
+          <p class="label-score">💯 Score: <span class="score">20</span></p>
+        </section>
+
+        <section class="w-[35rem] flex flex-col gap-20 p-3">
+          <p class="label-highscore">🥇 Highscore...</p>
+
+          <div class="list-highscore flex flex-col justify-center">
+            <p class="mb-10">1. Alfa ... 5</p>
+            <p class="mb-10">2. Beta ... 4</p>
+            <p class="mb-10">3. Charlie ... 3</p>
+            <p class="mb-10">4. Gamma ... 2</p>
+            <p class="mb-10">5. Theta ... 1</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>
