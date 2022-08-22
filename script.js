@@ -9,29 +9,42 @@ const scoreBoard = [
 ];
 
 let timeLeft = 20;
+let result = 0;
+let score = 0;
 
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 function compute() {
-    const operators = ["+", "-", "x", "÷"]; 
-
+    const operators = ["+", "-", "*", "÷"];
     document.querySelector(".number").innerHTML = (Math.trunc(Math.random() * 10) + 1) + operators[getRandomInt(0,3)] + (Math.trunc(Math.random() * 10) + 1);
-}
+    result = eval(document.querySelector(".number").textContent);
+
+    return result;
+};
 
 document.addEventListener("DOMContentLoaded", function(event) {
     compute();
-    let countdown = setInterval(function(){
-    timeLeft--;
+    let countdown = setInterval(function() {
+        timeLeft--;
+        document.querySelector('.check').addEventListener('click', function () {
+            const guess = Number(document.querySelector('.guess').value);
 
-    document.getElementById("time").textContent = timeLeft;
-    if (timeLeft <= 0) {
-        clearInterval(countdown);
-    }
-    if (timeLeft == 0) {
-        document.querySelector('.message').textContent = '💥Times up!!!';
-    }
+            if (guess == result) {
+                score++;
+                document.querySelector('.score').textContent = score;
+                compute();
+            }
+        });
+
+        document.getElementById("time").textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+        }
+        if (timeLeft == 0) {
+            document.querySelector('.message').textContent = '💥Times up!!!';
+        }
     }, 1000);
 });
 
