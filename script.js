@@ -1,5 +1,6 @@
 'use strict';
 // Zuhal 'Alimul Hadi
+// ada bug blm ngubah rank di obj yg sblm sblm nya
 
 let initialData = [
     {
@@ -39,7 +40,10 @@ let interval;
 let isLose;
 let currScore;
 let latestRank;
+let numberBanner = document.querySelector(".number");
 
+const highScore = document.querySelector(".highscore");
+const inputVal = document.querySelector(".guess");
 const tbody = document.querySelector('.table-content');
 const timeLeft = document.querySelector('.time-left');
 const firstNumberEl = document.getElementById('first-number');
@@ -47,6 +51,8 @@ const operatorEl = document.getElementById('operator');
 const secondNumberEl = document.getElementById('second-number');
 const submitHighScoreEl = document.getElementById('new-highscore');
 const btnSubmitHighScoreEl = document.getElementById('btn-submit-highscore');
+const inputNameHighScoreEl = document.getElementById("input-highscore");
+const scoreEl = document.querySelector('.score');
 
 const startTimer = () => {
     timeLeft.innerText = 20;
@@ -144,14 +150,13 @@ const updateArrayLatest = (rank) => {
     if (typeof rank === "number") {
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
         // console.log("before: " + initialData.toString());
-        // misal gua insert di index 4
-        // gua ga usah ambil index 5
 
         initialData.splice(findIndex, 0, {
             rank: latestRank,
             name: document.getElementById("input-highscore").value,
             score: currScore
         });
+
         initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex, initialData.length - 1)];
         // console.log("after: " + initialData.toString());
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
@@ -159,20 +164,6 @@ const updateArrayLatest = (rank) => {
         latestRank = null;
     }
 }
-
-const init = () => {
-    startTimer();
-    refreshHighScore();
-    refreshQuestions();
-}
-
-init();
-
-let numberBanner = document.querySelector(".number");
-const highScore = document.querySelector(".highscore");
-const inputVal = document.querySelector(".guess");
-
-let res = Math.trunc(Math.random() * 20) + 1;
 
 const displayMessage = (message) => {
     document.querySelector(".message").innerText = message;
@@ -183,6 +174,23 @@ const changeBackground = (color) => {
     document.querySelector("body").style.background = color;
     return color;
 }
+
+const init = () => {
+    currScore = 0;
+    scoreEl.innerText = 0;
+    inputVal.value = ""
+    inputNameHighScoreEl.value = "";
+    isLose = false;
+    displayMessage("Start guessing...");
+    changeBackground("#222");
+    startTimer();
+    refreshHighScore();
+    refreshQuestions();
+}
+
+init();
+
+let res = Math.trunc(Math.random() * 20) + 1;
 
 document.querySelector(".check").addEventListener('click', function() {
     let score = document.querySelector(".score").innerText;
@@ -207,10 +215,6 @@ document.querySelector(".check").addEventListener('click', function() {
 })
 
 document.querySelector(".again").addEventListener("click", function() {
-    numberBanner.innerText = "?"
-    displayMessage("Start guessing...")
-    inputVal.value = ""
-    changeBackground("#222")
-    res = Math.trunc(Math.random() * 20) + 1;
-    document.querySelector(".score").innerText = 20;
+    init();
+    submitHighScoreEl.classList.add('hidden');
 });
