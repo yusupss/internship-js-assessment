@@ -1,7 +1,5 @@
 'use strict';
 // Zuhal 'Alimul Hadi
-// ada bug blm ngubah rank di obj yg sblm sblm nya
-
 let initialData = [
     {
         rank: 1,
@@ -72,6 +70,7 @@ const startTimer = () => {
 
 const refreshHighScore = () => {
     tbody.innerHTML = "";
+    initialData = initialData.sort((a, b)=> a.rank - b.rank);
     initialData.map((data)=>{
         const row = document.createElement('tr');
         
@@ -127,7 +126,7 @@ const checkScore = () => {
     });
     
     if (typeof latestRank === "number") {
-        submitHighScoreEl.classList.toggle('hidden');
+        submitHighScoreEl.classList.remove('hidden');
     }
 }
 
@@ -144,8 +143,6 @@ const updateArrayLatest = (rank) => {
             return;
         }
     })
-
-    console.log("Find Index: " + findIndex)
 
     if (typeof rank === "number") {
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
@@ -217,7 +214,10 @@ document.querySelector(".check").addEventListener('click', function() {
             displayMessage("Wrong answer, try again");
             refreshQuestions();
         } 
-    } 
+    } else {
+        toastr.options.positionClass = "toast-top-center";
+        toastr.error("You've lost the game. \nPlease click again button to play again.", {timeOut: 5000});
+    }
 })
 
 document.querySelector(".again").addEventListener("click", function() {

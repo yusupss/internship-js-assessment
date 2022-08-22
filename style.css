@@ -109,6 +109,11 @@ h1 {
   width: 90%;
 }
 
+.toast-top-center {
+  top: 24px;
+  left:1%;
+}
+
 .btn {
   border: none;
   background-color: #eee;
