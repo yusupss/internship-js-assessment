@@ -10,9 +10,20 @@ const scoreBoard = [
 
 let timeLeft = 20;
 
-document.addEventListener("DOMContentLoaded", function(event) { 
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function compute() {
+    const operators = ["+", "-", "x", "÷"]; 
+
+    document.querySelector(".number").innerHTML = (Math.trunc(Math.random() * 10) + 1) + operators[getRandomInt(0,3)] + (Math.trunc(Math.random() * 10) + 1);
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    compute();
     let countdown = setInterval(function(){
-        timeLeft--;
+    timeLeft--;
 
     document.getElementById("time").textContent = timeLeft;
     if (timeLeft <= 0) {
