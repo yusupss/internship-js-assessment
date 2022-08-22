@@ -38,6 +38,7 @@ let interval;
 let isLose;
 let currScore;
 let latestRank;
+let isSubmitted;
 let numberBanner = document.querySelector(".number");
 
 const highScore = document.querySelector(".highscore");
@@ -51,6 +52,8 @@ const submitHighScoreEl = document.getElementById('new-highscore');
 const btnSubmitHighScoreEl = document.getElementById('btn-submit-highscore');
 const inputNameHighScoreEl = document.getElementById("input-highscore");
 const scoreEl = document.querySelector('.score');
+
+toastr.options.positionClass = "toast-top-center";
 
 const startTimer = () => {
     timeLeft.innerText = 20;
@@ -130,7 +133,15 @@ const checkScore = () => {
     }
 }
 
-btnSubmitHighScoreEl.addEventListener('click', ()=> updateArrayLatest(latestRank));
+btnSubmitHighScoreEl.addEventListener('click', ()=> {
+    if (!isSubmitted && inputNameHighScoreEl.value) {
+        updateArrayLatest(latestRank);
+    } else if (!inputNameHighScoreEl.value) {
+        toastr.error("Please enter your name.");
+    } else {
+        toastr.error("You've already submitted.\nPlease click again button to play again.");
+    }
+});
 
 const updateArrayLatest = (rank) => {
     let findIndex;
@@ -152,7 +163,6 @@ const updateArrayLatest = (rank) => {
                 data.rank += 1;
             }
         })
-        // console.log("before: " + initialData.toString());
 
         initialData.splice(findIndex, 0, {
             rank: latestRank,
@@ -161,10 +171,11 @@ const updateArrayLatest = (rank) => {
         });
 
         initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex, initialData.length - 1)];
-        // console.log("after: " + initialData.toString());
+
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
         refreshHighScore();
         latestRank = null;
+        isSubmitted = true;
     }
 }
 
@@ -184,6 +195,7 @@ const init = () => {
     inputVal.value = ""
     inputNameHighScoreEl.value = "";
     isLose = false;
+    isSubmitted = false;
     displayMessage("Start guessing...");
     changeBackground("#222");
     startTimer();
@@ -215,8 +227,7 @@ document.querySelector(".check").addEventListener('click', function() {
             refreshQuestions();
         } 
     } else {
-        toastr.options.positionClass = "toast-top-center";
-        toastr.error("You've lost the game. \nPlease click again button to play again.", {timeOut: 5000});
+        toastr.error("You've lost the game. \nPlease click again button to play again.");
     }
 })
 
