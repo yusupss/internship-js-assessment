@@ -49,7 +49,7 @@ const submitHighScoreEl = document.getElementById('new-highscore');
 const btnSubmitHighScoreEl = document.getElementById('btn-submit-highscore');
 
 const startTimer = () => {
-    timeLeft.innerText = 5;
+    timeLeft.innerText = 20;
     let value = parseInt(timeLeft.innerText);
     interval = setInterval(()=> {
         if (value <= 0) {
@@ -97,7 +97,7 @@ const refreshQuestions = () => {
     secondNumberEl.innerText = secondNumber;
     operatorEl.innerText = operator;
     resultOperation = getResult(firstNumber, operator, secondNumber);
-    console.log(resultOperation);
+    // console.log(resultOperation);
 }
 
 const getResult = (a, operator, b) => {
@@ -142,14 +142,17 @@ const updateArrayLatest = (rank) => {
     console.log("Find Index: " + findIndex)
 
     if (typeof rank === "number") {
-        initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex + 1, initialData.length)];
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
         // console.log("before: " + initialData.toString());
+        // misal gua insert di index 4
+        // gua ga usah ambil index 5
+
         initialData.splice(findIndex, 0, {
             rank: latestRank,
             name: document.getElementById("input-highscore").value,
             score: currScore
         });
+        initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex, initialData.length - 1)];
         // console.log("after: " + initialData.toString());
         initialData = initialData.sort((a, b)=> a.rank - b.rank);
         refreshHighScore();
@@ -195,17 +198,10 @@ document.querySelector(".check").addEventListener('click', function() {
             displayMessage("Correct Number! Congrats!")
             currScore += 1;
             document.querySelector(".score").innerText = currScore.toString();
-            console.log("adsffadfsadwf " +  document.querySelector(".score").innerText);
             refreshQuestions();
-            // clearInterval(interval);
-            // startTimer();
         } else if (parseInt(inputVal.value) !== parseInt(res)) {
             displayMessage("Wrong answer, try again");
             refreshQuestions();
-            // currScore -= 1;
-            // score > 0 ? document.querySelector(".score").innerText = currScore : isLose = true;
-            // clearInterval(interval);
-            // startTimer();
         } 
     } 
 })
