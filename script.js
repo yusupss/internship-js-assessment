@@ -53,16 +53,19 @@ const btnSubmitHighScoreEl = document.getElementById('btn-submit-highscore');
 const inputNameHighScoreEl = document.getElementById("input-highscore");
 const scoreEl = document.querySelector('.score');
 
-toastr.options.positionClass = "toast-top-center";
+// notification Element
+const isLostNotificationEl = document.getElementById('is-played');
+const invalidNameNotificationEl = document.getElementById('invalid-name');
+const isSubmittedNotificationEl = document.getElementById('is-submitted');
 
 const startTimer = () => {
-    timeLeft.innerText = 20;
+    timeLeft.innerText = 5;
     let value = parseInt(timeLeft.innerText);
     interval = setInterval(()=> {
         if (value <= 0) {
             clearInterval(interval);
             isLose = true;
-            message.innerText = "You lost the game!"
+            message.innerText = "Times up!!!"
             checkScore();
             return;
         }
@@ -137,11 +140,20 @@ btnSubmitHighScoreEl.addEventListener('click', ()=> {
     if (!isSubmitted && inputNameHighScoreEl.value) {
         updateArrayLatest(latestRank);
     } else if (!inputNameHighScoreEl.value) {
-        toastr.error("Please enter your name.");
+        invalidNameNotificationEl.classList.remove('hidden');
     } else {
-        toastr.error("You've already submitted.\nPlease click again button to play again.");
+        isSubmittedNotificationEl.classList.remove('hidden');
     }
 });
+
+const handleInputNameChange = () => {
+    const el = document.getElementById('input-highscore');
+    if (el.value != "") {
+        invalidNameNotificationEl.classList.add('hidden');
+    } else {
+        if (!isSubmitted) invalidNameNotificationEl.classList.remove('hidden');
+    }
+}
 
 const updateArrayLatest = (rank) => {
     let findIndex;
@@ -227,11 +239,14 @@ document.querySelector(".check").addEventListener('click', function() {
             refreshQuestions();
         } 
     } else {
-        toastr.error("You've lost the game. \nPlease click again button to play again.");
+        isLostNotificationEl.classList.remove('hidden');
     }
 })
 
 document.querySelector(".again").addEventListener("click", function() {
     init();
+    invalidNameNotificationEl.classList.add('hidden');
+    isSubmittedNotificationEl.classList.add('hidden');
+    isLostNotificationEl.classList.add('hidden');
     submitHighScoreEl.classList.add('hidden');
 });

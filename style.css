@@ -160,3 +160,11 @@ td, th {
 .hidden {
   display: none;
 }
+
+.text-red {
+  color: #dc3545;
+}
+
+.text-base {
+  font-size: 1.5rem;
+}
