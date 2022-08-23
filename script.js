@@ -76,6 +76,7 @@ function counter(timeLeft) {
                 inputName.style.display = 'block';
 
                 if (score > highScore) {
+                    document.querySelector('body').style.backgroundColor = '#0000FF';
                     highestScoreLabel.textContent = 'New Highscore!';
                     highScore = score;
                 }
@@ -182,7 +183,7 @@ inputNumber.addEventListener('keyup', (e) => {
 restartButton.addEventListener('click', () => {
     inputNumber.value = '';
     message.textContent = 'Start guessing...';
-    content.style.width = '30rem';
+    content.style.width = '40rem';
     inputName.style.display = 'none';
 
     document.querySelector('.score').textContent = 0;
