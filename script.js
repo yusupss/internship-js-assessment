@@ -2,27 +2,22 @@
 // Zuhal 'Alimul Hadi
 let initialData = [
     {
-        rank: 1,
         name: 'Natasha',
         score: 5
     },
     {
-        rank: 2,
         name: 'Tony',
         score: 4
     },
     {
-        rank: 3,
         name: 'Peter',
         score: 3
     },
     {
-        rank: 4,
         name: 'Xavier',
         score: 2
     },
     {
-        rank: 5,
         name: 'Tchala',
         score: 1
     }
@@ -37,7 +32,7 @@ let resultOperation;
 let interval;
 let isLose;
 let currScore;
-let latestRank;
+let currentRank;
 let isSubmitted;
 let numberBanner = document.querySelector(".number");
 
@@ -78,7 +73,9 @@ const startTimer = () => {
 
 const refreshHighScore = () => {
     tbody.innerHTML = "";
+
     initialData = initialData.sort((a, b)=> b.score - a.score);
+    
     initialData.map((data, index)=>{
         const row = document.createElement('tr');
         
@@ -124,18 +121,19 @@ const getResult = (a, operator, b) => {
 }
 
 const checkScore = () => {
-    latestRank = null;
+    currentRank = null;
 
-    let sortedByLowRank = initialData.sort((a, b)=>a.score - b.score);
+    let sortedByHighestRank = initialData.sort((a, b)=> b.score - a.score);
 
-    sortedByLowRank.map((data)=>{
-        console.log(latestRank);
-        currScore >= data.score ? latestRank = data.rank : null;
+    // check whether got to leaderboard
+    for (let i=0; i<sortedByHighestRank.length ;i++) {
+        if (currScore >= initialData[i].score) {
+            currentRank = i + 1;
+            break;
+        }
+    }
 
-        console.log("latest rank sebelum adalah: " + latestRank);
-    });
-    
-    if (typeof latestRank === "number") {
+    if (typeof currentRank === "number") {
         submitHighScoreEl.classList.remove('hidden');
     }
 }
@@ -149,40 +147,20 @@ const handleInputNameChange = () => {
     }
 }
 
-const updateArrayLatest = (rank) => {
-    let findIndex;
-
-    initialData = initialData.sort((a, b)=> b.score - a.score);
-    
-    initialData.map((data, index)=> {
-        if (data.rank == rank) {
-            findIndex = index;
-            return;
-        }
-    })
-
-    if (typeof rank === "number") {
+const updateArrayLatest = (currentRank) => {
+    if (typeof currentRank === "number") {
         initialData = initialData.sort((a, b)=> b.score - a.score);
 
-        initialData.map((data, index)=> {
-            if (index >= findIndex) {
-                data.rank += 1;
-            }
-        })
-
-        console.log("latest rank final: " + rank);
-
-        initialData.splice(findIndex, 0, {
-            rank: rank,
+        initialData.splice(currentRank - 1, 0, {
             name: document.getElementById("input-highscore").value,
             score: currScore
         });
 
-        initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex, initialData.length - 1)];
+        initialData = [...initialData.slice(0, initialData.length - 1)];
 
         initialData = initialData.sort((a, b)=> b.score - a.score);
         refreshHighScore();
-        latestRank = null;
+        currentRank = null;
         isSubmitted = true;
     }
 }
@@ -246,7 +224,7 @@ againBtn.addEventListener("click", function() {
 
 btnSubmitHighScoreEl.addEventListener('click', ()=> {
     if (!isSubmitted && inputNameHighScoreEl.value) {
-        updateArrayLatest(latestRank);
+        updateArrayLatest(currentRank);
     } else if (!inputNameHighScoreEl.value) {
         invalidNameNotificationEl.classList.remove('hidden');
     } else {
