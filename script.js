@@ -89,6 +89,7 @@ function countDown() {
       clearInterval(timer);
       btnCheck.disabled = true;
       theView.style.fontSize = "large";
+      answer.disabled = true;
       if (score === 0) {
         theView.innerHTML = "Try again next time 😊";
         btnReview.classList.remove("hidden");
@@ -129,7 +130,7 @@ const again = () => {
   review = [];
   btnCheck.disabled = false;
   theView.style.fontSize = "6rem";
-
+  btnSubmit.classList.add("hidden");
   highscoreField.classList.add("hidden");
   btnSkip.classList.remove("hidden");
   btnReview.classList.add("hidden");
