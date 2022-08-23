@@ -44,7 +44,7 @@ main {
 
 .right {
   margin-top: 5.5rem;
-  width: max-content;
+  width: 44rem;
   font-size: 2rem;
   display: flex;
   flex-direction: column;
