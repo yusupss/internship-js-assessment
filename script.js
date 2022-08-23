@@ -68,6 +68,7 @@ const setUp = () => {
 };
 
 btnSubmit.addEventListener("click", function () {
+  btnSubmit.disabled = true;
   let temp = [];
   highscore.map((data) => {
     data.score < score ? temp.push(false) : temp.push(true);
@@ -84,6 +85,7 @@ function countDown() {
   timeLeft = 20;
   let timer = setInterval(function () {
     if (timeLeft == 0) {
+      btnSkip.classList.toggle("hidden");
       clearInterval(timer);
       btnCheck.disabled = true;
       theView.style.fontSize = "large";
@@ -123,11 +125,13 @@ function toggleHighscore() {
 }
 
 const again = () => {
+  timeLeft = 20;
   review = [];
   btnCheck.disabled = false;
   theView.style.fontSize = "6rem";
-  toggleHighscore();
-  toggleSubmit();
+
+  highscoreField.classList.add("hidden");
+  btnSkip.classList.remove("hidden");
   btnReview.classList.add("hidden");
   theName.value = "";
   answer.value = "";
