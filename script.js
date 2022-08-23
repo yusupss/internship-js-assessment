@@ -18,6 +18,7 @@ const card = document.querySelector(".card");
 let timeLeft;
 let score = 0;
 let arrMath = [];
+let timer;
 const operators = ["+", "-", "x"];
 const highscore = [
   {
@@ -81,12 +82,13 @@ btnSubmit.addEventListener("click", function () {
   viewHighScore();
   btnReview.classList.remove("hidden");
 });
-let timer;
+
 function countDown() {
   timeLeft = 20;
   timer = setInterval(function () {
     if (timeLeft == 0) {
       btnSkip.classList.toggle("hidden");
+      btnReview.classList.remove("hidden");
       clearInterval(timer);
       btnCheck.disabled = true;
       btnSubmit.disabled = false;
@@ -141,7 +143,6 @@ const again = () => {
   answer.value = "";
   score = 0;
   message.innerHTML = "Start guessing...";
-
   init();
 };
 
