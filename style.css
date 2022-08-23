@@ -104,7 +104,7 @@ input[type='number'] {
 }
 
 .bestPlayerTitle {
-  animation: blip 1s ease-out infinite;
+  animation: blip .7s ease-out infinite;
 }
 
 @keyframes blip {
