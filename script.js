@@ -1,131 +1,176 @@
 'use strict';
-//  Get random number
-const getRandomNum = (a, b) => {
-    a = Math.ceil(a); //  Rounds the number to a higher value
-    b = Math.floor(b); //  Rounds the number to a lower value
-    return Math.floor(Math.random() * (a - b + 1)) + b; //  Returns a random number between a and b
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const operations = new Map([
+
+const operation = new Map([
     [0, '+'],
     [1, '-'],
     [2, '*'],
 ]);
 
-let count = 20;
+let count = 30;
 let score = 0;
-let operator = operations.get(getRandomNum(0, 2)); //  Generate random operator
-let num1 = getRandomNum(0, 9);
-let num2 = getRandomNum(0, 9);
+let operator = operation.get(getRandomInt(0, 2));
+let numOne = getRandomInt(0, 9);
+let numTwo = getRandomInt(0, 9);
 let isUpdated = false;
 
-document.querySelector('.number').textContent = `${num1} ${operator} ${num2}`;
-//  Game logic
-const calculation = (num1, operations, num2) => {
-    if (operations == '+') {
-        return num1 + num2;
-    } else if (operations == '*') {
-        return num1 * num2;
-    } else if (operations == '-') {
-        return num1 - num2;
-    }
-};
+document.querySelector(
+    '.number'
+).textContent = `${numOne} ${operator} ${numTwo}`;
 
-const topPlayer = [
-    {   name: 'Thomas', 
-        score: 6,
-    }, {
-        name: 'Arthur',
-        score: 5,
-    }, {
-        name: 'John',
-        score: 4,
-    }, {
-        name: 'Alfie Solomons',
-        score: 3,
-    }, {
-        name: 'Michael Gray',
-        score: 2,
+function calc(numOne, numTwo, operation) {
+    switch (operation) {
+        case '+':
+            return numOne + numTwo;
+        case '-':
+            return numOne - numTwo;
+        case '':
+            return numOne * numTwo;
+        default:
+            break;
     }
-];
-
-for (let i = 0; i < topPlayer.length; i++) {
-    document.querySelector(`.player-${i + 1}`).textContent = `${topPlayer[i].name} ... ${topPlayer[i].score}`
 }
 
-const timeInterval = setInterval(() => {
+let topScores = [{
+        name: 'Thomas',
+        score: 5
+    },
+    {
+        name: 'Arthur',
+        score: 4
+    },
+    {
+        name: 'John',
+        score: 3
+    },
+    {
+        name: 'Alfie Solomons',
+        score: 2
+    },
+    {
+        name: 'Michael Gray',
+        score: 1
+    },
+];
+
+for (let i = 0; i < topScores.length; i++) {
+    document.querySelector(
+        `.player-${i + 1}`
+    ).textContent = `${topScores[i].name} ... ${topScores[i].score}`;
+}
+
+const intervalID = setInterval(() => {
     count--;
     document.querySelector('.time').textContent = count;
-    //  If times up
     if (count < 1) {
-        //  If there is new highscorer than -1 from top player
-        if (score > topPlayer[topPlayer.length - 1].score){
-            document.querySelector('.final').style.display = 'flex';
-            document.querySelector('.message').textContent = '🔥 Times up !!!';
-            document.querySelector('.number').textContent = `Your score is ${score}`;
+        if (score > topScores[topScores.length - 1].score) {
+            document.querySelector('#new--highscore').style.display = 'flex';
+            document.querySelector('.message').textContent = '☄️ Times up !!!';
+            document.querySelector('.number').textContent = `Your Score is ${score}`;
         }
-        clearInterval(timeInterval);
+
+        clearInterval(intervalID);
     }
 }, 1000);
 
-document.getElementById('#check-calc').addEventListener('submit', c => {
-    c.preventDefault();
-    const guessNum = Number(document.querySelector('.guess').value);
-    const totCalculation = calculation(num1, num2, operator);
+document.getElementById('check--calculation').addEventListener('submit', e => {
+    e.preventDefault();
+    const guessNumber = Number(document.querySelector('.guess').value);
+    const totalCalc = calc(numOne, numTwo, operator);
 
     if (count < 1) {
-        alert('🔥 Times up !!!');
+        alert('Times up!!!');
         return;
     }
 
-    if ( totCalculation === guessNum) {
-        document.querySelector('.message').textContent ='🎉 Correct Answer!';
+    if (totalCalc === guessNumber) {
+        document.querySelector('.message').textContent =
+            '🎉 Correct Answer! Answer next';
         score++;
 
         document.querySelector('.score').textContent = score;
-        num1 = getRandomNum(0, 9);
-        num2 = getRandomNum(0, 9);
-        operations.get(getRandomNum(0, 2));
-        document.querySelector('.number').textContent = `${num1} ${operator} ${num2}`;
+        numOne = getRandomInt(0, 9);
+        numTwo = getRandomInt(0, 9);
+        operation.get(getRandomInt(0, 2));
+        document.querySelector(
+            '.number'
+        ).textContent = `${numOne} ${operator} ${numTwo}`;
     }
 });
 
-document.querySelector('#new-highscorer').addEventListener('submit', c => {
-    c.preventDefault();
+document.querySelector('#new--highscore').addEventListener('submit', e => {
+    e.preventDefault();
     const newPlayer = document.querySelector('.name').value;
-    console.log(topPlayer);
-    if (topPlayer.some(c => c.name === newPlayer) && topPlayer.some(c => c.score >= score)){
+    console.log(topScores);
+    if (
+        topScores.some(e => e.name === newPlayer) &&
+        topScores.some(e => e.score >= score)
+    ) {
         return;
     }
-    topPlayer = topPlayer.filter(({ name }) => name !== newPlayer);
+
+    topScores = topScores.filter(({
+        name
+    }) => name !== newPlayer);
+
     if (isUpdated) {
         return;
     }
-    topPlayer.push(
-        {   name: newPlayer, 
-            score: score,
-        });
-    topPlayer.sort((x, y) => y.score - x.score);
-    topPlayer.pop();
+
+    topScores.push({
+        name: newPlayer,
+        score: score
+    });
+
+    topScores.sort((a, b) => b.score - a.score);
+
+    topScores.pop();
+
     isUpdated = true;
 
-    for (let i = 0; i < topPlayer.length; i++) {
-        document.querySelector(`.player-${i + 1}`).textContent = `${topPlayer[i].name} ... ${topPlayer[i].score}`;
+    for (let i = 0; i < topScores.length; i++) {
+        document.querySelector(
+            `.player-${i + 1}`
+        ).textContent = `${topScores[i].name} ... ${topScores[i].score}`;
     }
 });
 
-document.querySelector('.new-game').addEventListener('click', function() {
+document.querySelector('.new--game').addEventListener('click', () => {
     score = 0;
-    count = 20;
-    isUpdated = false;
+    count = 30;
 
-    document.querySelector('#new-highscorer').style.display = 'none';
+    isUpdated = false;
+    document.querySelector('#new--highscore').style.display = 'none';
     document.querySelector('.message').textContent = 'Start guessing...';
     document.querySelector('.number').textContent = `Your Score is ${score}`;
 
     document.querySelector('.score').textContent = score;
     document.querySelector('.time').textContent = count;
-    numOne = getRandomNum(0, 9);
-    numTwo = getRandomNum(0, 9);
-    operation.get(getRandomNum(0, 2));
-    document.querySelector('.number').textContent = `${numOne} ${operator} ${numTwo}`;
-})
+    numOne = getRandomInt(0, 9);
+    numTwo = getRandomInt(0, 9);
+    operation.get(getRandomInt(0, 2));
+    document.querySelector(
+        '.number'
+    ).textContent = `${numOne} ${operator} ${numTwo}`;
+
+    const intervalID = setInterval(() => {
+        count--;
+        document.querySelector('.time').textContent = count;
+        if (count < 1) {
+            if (score > topScores[topScores.length - 1].score) {
+                document.querySelector('#new--highscore').style.display = 'flex';
+                document.querySelector('.message').textContent = '☄️ Times up !!!';
+                document.querySelector(
+                    '.number'
+                ).textContent = `Your Score is ${score}`;
+            }
+
+            clearInterval(intervalID);
+        }
+    }, 1000);
+});
