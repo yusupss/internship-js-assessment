@@ -108,7 +108,7 @@ const refreshQuestions = () => {
     
     firstNumberEl.innerText = firstNumber;
     secondNumberEl.innerText = secondNumber;
-    operatorEl.innerText = operator;
+    operatorEl.innerText = operator === "*" ? "x" : operator;
     resultOperation = getResult(firstNumber, operator, secondNumber);
 }
 
