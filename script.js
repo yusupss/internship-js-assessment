@@ -217,8 +217,6 @@ const init = () => {
 
 init();
 
-let res = Math.trunc(Math.random() * 20) + 1;
-
 document.querySelector(".check").addEventListener('click', function() {
     let score = document.querySelector(".score").innerText;
     currScore = parseInt(score);
@@ -234,7 +232,7 @@ document.querySelector(".check").addEventListener('click', function() {
             currScore += 1;
             document.querySelector(".score").innerText = currScore.toString();
             refreshQuestions();
-        } else if (parseInt(inputVal.value) !== parseInt(res)) {
+        } else if (parseInt(inputVal.value) !== parseInt(resultOperation)) {
             displayMessage("Wrong answer, try again");
             refreshQuestions();
         } 
