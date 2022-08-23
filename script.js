@@ -10,6 +10,10 @@ const again = document.querySelector('.again');
 const persons = document.querySelector('.persons');
 const timeLeft = document.querySelector('.timeleft');
 const submit = document.querySelector('.submit');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const greeting = document.querySelector('.greeting');
 
 const number1 = Math.trunc(Math.random() * 9) + 1;
 const number2 = Math.trunc(Math.random() * 9) + 1;
@@ -57,6 +61,15 @@ const showForm = () => {
   form.classList.remove('hidden');
 };
 
+const openModal = () => {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+}
+const closeModal = () => {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+}
+
 score.textContent = 0;
 
 const eq = {
@@ -96,7 +109,6 @@ const countdown = () => {
       body.style.backgroundColor = '#ff0000';
       time = 1;
       check.disabled = true;
-      openModal();
       showForm();
     } else if (time <= 5) {
       if (time % 2 == 0) {
@@ -126,7 +138,6 @@ const displayMessage = msg => {
 
 check.addEventListener('click', () => {
   checkAnswer();
-  // add new equation to eq
   eq.number1 = Math.trunc(Math.random() * 9) + 1;
   eq.number2 = Math.trunc(Math.random() * 9) + 1;
   idxOps = Math.floor(Math.random() * operatorArray.length);
@@ -144,13 +155,19 @@ submit.addEventListener('click', () => {
         score: score.textContent,
       });
       highScorePersons.pop(); // remove last element
+      greeting.textContent = `${playerName} you are the new highscore! 🥳👌🤩`;
+      openModal();
       break;
+    } else {
+      greeting.textContent = `${playerName} you are not the new highscore! 😢`;
+      openModal();
     }
   }
   persons.innerHTML = '';
   displayPlayers();
 });
 
+btnCloseModal.addEventListener('click', closeModal);
 again.addEventListener('click', () => {
   location.reload();
 });

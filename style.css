@@ -179,9 +179,15 @@ section.message {
   position: absolute;
   top: 1.2rem;
   right: 2rem;
-  font-size: 5rem;
-  color: #333;
+  font-size: 4rem;
+  color: black;
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.greeting {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #000;
 }
