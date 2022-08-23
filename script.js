@@ -113,6 +113,7 @@ const start = function () {
     resultEl.classList.add('hidden');
     scoreEl.textContent = score;
     guessEl.value = '';
+    nameEl.value = '';
     bodyEl.style.backgroundColor = '#222';
 
     displayMessage('Start Guessing...');
