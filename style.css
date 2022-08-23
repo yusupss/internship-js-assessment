@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Press Start 2P', sans-serif;
+  color: #eee;
+  background-color: #222;
+  /* background-color: #60b347; */
+  padding: 20px;
+}
+
+/* LAYOUT */
+header {
+  position: relative;
+  height: 35vh;
+  border-bottom: 7px solid #eee;
+}
+
+main {
+  color: #eee;
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.left {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap:8px;
+}
+
+.right {
+  margin-top: 5.5rem;
+  width: 44rem;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0rem 2rem;
+}
+
+/* ELEMENTS STYLE */
+h1 {
+  font-size: 4rem;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.number {
+  background: #eee;
+  color: #333;
+  font-size: 6rem;
+  padding: 3rem 0rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  padding: 8px;
+}
+
+.between {
+  font-size: 1.4rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.again {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.input {
+  background: none;
+  border: 4px solid #eee;
+  font-family: inherit;
+  color: inherit;
+  font-size: 5rem;
+  padding: 2.5rem;
+  width: 25rem;
+  text-align: center;
+  display: block;
+}
+
+.submit-highscore {
+  height: 5rem;
+  width: 90%;
+}
+
+.toast-top-center {
+  top: 24px;
+  left:1%;
+}
+
+.btn {
+  border: none;
+  background-color: #eee;
+  color: #222;
+  font-size: 2rem;
+  font-family: inherit;
+  padding: 2rem 3rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ccc;
+}
+
+.message {
+  margin-bottom: 2rem;
+  height: 3rem;
+}
+
+.new-highscore {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-submit {
+  width: max-content;
+}
+
+.table-rank {
+  font-size: 1.75rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+.text-red {
+  color: #dc3545;
+}
+
+.text-base {
+  font-size: 1.5rem;
+}
