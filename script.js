@@ -197,8 +197,9 @@ document.addEventListener("keydown", function (e) {
 
 // confetti
 function confetti() {
-  startConfetti();
+  const confetti = document.querySelector(".confetti");
+  confetti.classList.remove("hidden");
   setTimeout(() => {
-    stopConfetti();
+    confetti.classList.add("hidden");
   }, 4000);
 }
