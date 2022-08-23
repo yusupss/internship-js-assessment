@@ -55,5 +55,15 @@ for (let i = 0; i < topPlayer.length; i++) {
 
 const timeInterval = setInterval(() => {
     count--;
-    document.querySelector('.time')
-})
+    document.querySelector('.time').textContent = count;
+    //  If times up
+    if (count < 1) {
+        //  If there is new highscorer than -1 from top player
+        if (score > topPlayer[topPlayer.length - 1].score){
+            document.querySelector('.final').style.display = 'flex';
+            document.querySelector('.message').textContent = '🔥 Times up !!!';
+            document.querySelector('.number').textContent = `Your score is ${score}`;
+        }
+        clearInterval(timeInterval);
+    }
+}, 1000)
