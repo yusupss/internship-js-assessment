@@ -1,6 +1,6 @@
 'use strict';
 
-const getRandomInt = (a, b) => {
+const getRandomNum = (a, b) => {
     a = Math.ceil(a);
     b = Math.floor(b);
     return Math.floor(Math.random() * (b - a + 1)) + a;
@@ -14,25 +14,20 @@ const operation = new Map([
 
 let count = 30;
 let score = 0;
-let operator = operation.get(getRandomInt(0, 2));
-let numOne = getRandomInt(0, 9);
-let numTwo = getRandomInt(0, 9);
+let operator = operation.get(getRandomNum(0, 2));
+let num1 = getRandomNum(0, 9);
+let num2 = getRandomNum(0, 9);
 let isUpdated = false;
 
-document.querySelector(
-    '.number'
-).textContent = `${numOne} ${operator} ${numTwo}`;
+document.querySelector('.number').textContent = `${num1} ${operator} ${num2}`;
 
-function calc(numOne, numTwo, operation) {
-    switch (operation) {
-        case '+':
-            return numOne + numTwo;
-        case '-':
-            return numOne - numTwo;
-        case '':
-            return numOne * numTwo;
-        default:
-            break;
+const calculation = (num1, num2, operation) => {
+    if (operation == '+') {
+        return num1 + num2;
+    } else if (operation == '-') {
+        return num1 - num2;
+    } else if (operation == '*') {
+        return num1 * num2;
     }
 }
 
@@ -69,7 +64,7 @@ const intervalID = setInterval(() => {
     document.querySelector('.time').textContent = count;
     if (count < 1) {
         if (score > topScores[topScores.length - 1].score) {
-            document.querySelector('#new--highscore').style.display = 'flex';
+            document.querySelector('#new-highscorer').style.display = 'flex';
             document.querySelector('.message').textContent = '☄️ Times up !!!';
             document.querySelector('.number').textContent = `Your Score is ${score}`;
         }
@@ -78,10 +73,10 @@ const intervalID = setInterval(() => {
     }
 }, 1000);
 
-document.getElementById('check--calculation').addEventListener('submit', e => {
+document.getElementById('check-calc').addEventListener('submit', e => {
     e.preventDefault();
     const guessNumber = Number(document.querySelector('.guess').value);
-    const totalCalc = calc(numOne, numTwo, operator);
+    const totalCalc = calculation(num1, num2, operator);
 
     if (count < 1) {
         alert('Times up!!!');
@@ -94,16 +89,16 @@ document.getElementById('check--calculation').addEventListener('submit', e => {
         score++;
 
         document.querySelector('.score').textContent = score;
-        numOne = getRandomInt(0, 9);
-        numTwo = getRandomInt(0, 9);
-        operation.get(getRandomInt(0, 2));
+        num1 = getRandomNum(0, 9);
+        num2 = getRandomNum(0, 9);
+        operation.get(getRandomNum(0, 2));
         document.querySelector(
             '.number'
-        ).textContent = `${numOne} ${operator} ${numTwo}`;
+        ).textContent = `${num1} ${operator} ${num2}`;
     }
 });
 
-document.querySelector('#new--highscore').addEventListener('submit', e => {
+document.querySelector('#new-highscorer').addEventListener('submit', e => {
     e.preventDefault();
     const newPlayer = document.querySelector('.name').value;
     console.log(topScores);
@@ -140,30 +135,30 @@ document.querySelector('#new--highscore').addEventListener('submit', e => {
     }
 });
 
-document.querySelector('.new--game').addEventListener('click', () => {
+document.querySelector('.new-game').addEventListener('click', () => {
     score = 0;
     count = 30;
 
     isUpdated = false;
-    document.querySelector('#new--highscore').style.display = 'none';
+    document.querySelector('#new-highscorer').style.display = 'none';
     document.querySelector('.message').textContent = 'Start guessing...';
     document.querySelector('.number').textContent = `Your Score is ${score}`;
 
     document.querySelector('.score').textContent = score;
     document.querySelector('.time').textContent = count;
-    numOne = getRandomInt(0, 9);
-    numTwo = getRandomInt(0, 9);
-    operation.get(getRandomInt(0, 2));
+    num1 = getRandomNum(0, 9);
+    num2 = getRandomNum(0, 9);
+    operation.get(getRandomNum(0, 2));
     document.querySelector(
         '.number'
-    ).textContent = `${numOne} ${operator} ${numTwo}`;
+    ).textContent = `${num1} ${operator} ${num2}`;
 
     const intervalID = setInterval(() => {
         count--;
         document.querySelector('.time').textContent = count;
         if (count < 1) {
             if (score > topScores[topScores.length - 1].score) {
-                document.querySelector('#new--highscore').style.display = 'flex';
+                document.querySelector('#new-highscorer').style.display = 'flex';
                 document.querySelector('.message').textContent = '☄️ Times up !!!';
                 document.querySelector(
                     '.number'

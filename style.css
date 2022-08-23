@@ -76,7 +76,7 @@ h1 {
   right: 2rem;
 }
 
-.new--game {
+.new-game {
   position: absolute;
   top: 2rem;
   left: 2rem;
@@ -131,7 +131,7 @@ h1 {
   margin-bottom: 2rem;
 }
 
-#new--highscore {
+#new-highscorer {
   display: none;
   flex-direction: column;
   align-items: flex-start;
