@@ -1,9 +1,9 @@
 'use strict';
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomInt = (a, b) => {
+    a = Math.ceil(a);
+    b = Math.floor(b);
+    return Math.floor(Math.random() * (b - a + 1)) + a;
 }
 
 const operation = new Map([
