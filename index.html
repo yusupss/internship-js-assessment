@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="assets/styles/style.css" />
+    <title>Guess My Number!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Do the Math!</h1>
+      <button class="btn again">Again!</button>
+      <div class="question"></div>
+    </header>
+    <main>
+      <section class="left">
+        <input type="number" class="guess" />
+        <button class="btn check">Check!</button>
+      </section>
+      <section class="middle">
+        <div class="form hidden">
+          <p>New Highscore!</p>
+          <div class="input-field">
+            <label>Please enter your name!</label>
+            <input type="text" class="name" />
+          </div>
+          <button class="btn formName" type="submit" onclick="formNameHandle()">Submit</button>
+        </div>
+        <p class="message">Start guessing...</p>
+        <p class="label-time">⌛ Time Left: <span class="time"></span></p>
+        <p class="label-score">💯 Score: <span class="score">0</span></p>
+      </section>
+      <section class="right">
+        <p class="label-highscore">🥇 Highscore:</p>
+        <ol class="list-highscore">
+          <li>Arya ... 5</li>
+          <li>Andra ... 4</li>
+          <li>Made ... 3</li>
+          <li>Naufal ... 2</li>
+          <li>Majid ... 1</li>
+        </ol>
+      </section>
+    </main>
+    <script src="assets/scripts/script.js"></script>
+  </body>
+</html>
