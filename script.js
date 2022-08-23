@@ -94,6 +94,7 @@ function counter(timeLeft) {
                     document.querySelector('body').style.backgroundColor = '#0000FF';
                     highestScoreLabel.textContent = 'New Highscore!';
                     highScore = score;
+                    console.log(highScore);
                 }
             }
         }, 1000);
@@ -228,6 +229,7 @@ restartButton.addEventListener('click', () => {
     content.style.width = '40rem';
     inputName.style.display = 'none';
 
+    highestScoreLabel.textContent = '';
     document.querySelector('.score').textContent = 0;
     document.querySelector('body').style.backgroundColor = '#222';
 
