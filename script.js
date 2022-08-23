@@ -27,4 +27,33 @@ const calculation = (num1, operations, num2) => {
     } else if (operations == '-') {
         return num1 - num2;
     }
-}   
+};
+
+let count = 20; 
+
+const topPlayer = [
+    {   name: 'Thomas', 
+        score: 6,
+    }, {
+        name: 'Arthur',
+        score: 5,
+    }, {
+        name: 'John',
+        score: 4,
+    }, {
+        name: 'Alfie Solomons',
+        score: 3,
+    }, {
+        name: 'Michael Gray',
+        score: 2,
+    }
+];
+
+for (let i = 0; i < topPlayer.length; i++) {
+    document.querySelector(`.player-${i + 1}`).textContent = `${topPlayer[i].name} ... ${topPlayer[i].score}`
+}
+
+const timeInterval = setInterval(() => {
+    count--;
+    document.querySelector('.time')
+})
