@@ -49,7 +49,7 @@ function getRandomInt(min, max) {
 function compute() {
     const operators = ["+", "-", "x", "÷"];
     content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + ' ' + operators[getRandomInt(0, 3)] + ' ' + (Math.trunc(Math.random() * 10) + 1);
-    result = eval(document.querySelector(".content").textContent);
+    result = evaluate(document.querySelector(".content").textContent);
 
     return result;
 };
@@ -119,6 +119,42 @@ function checkSubmit() {
     document.getElementById('score-board').innerHTML = scoreboard;
 };
 
+// Function to change the string expression into number expression
+function evaluate(expression) {
+    let tokens = expression.split('');
+    let values = [];
+    let op = [];
+    for (let i = 0; i < tokens.length; i++) {
+        if (tokens[i] == ' ') {
+            continue;
+        }
+
+        if (tokens[i] >= '0' && tokens[i] <= '9') {
+            let buffer = "";
+
+            while (i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9') {
+                buffer = buffer + tokens[i++];
+            }
+
+            values.push(parseInt(buffer, 10));
+            i--;
+        } else if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == 'x' || tokens[i] == '÷') {
+            while (op.length > 0) {
+                values.push(getOperator(op.pop(), values.pop(), values.pop()));
+            }
+
+            op.push(tokens[i]);
+        }
+    }
+
+    while (op.length > 0) {
+        values.push(getOperator(op.pop(), values.pop(), values.pop()));
+    }
+
+    return values.pop();
+};
+
+// Function to get the operator before it can be calculated
 function getOperator(op, b, a) {
     switch (op) {
         case '+':
