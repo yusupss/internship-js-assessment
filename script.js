@@ -31,8 +31,8 @@ const openModalButton = document.querySelector('.tutorial');
 const content = document.querySelector(".content");
 const checkButton = document.querySelector('.check');
 const message = document.querySelector('.message');
-const inputName = document.querySelector('.inputName');
-const user  = document.querySelector('.username');
+const userField = document.querySelector('.userField');
+const inputName  = document.querySelector('.inputName');
 const submitButton = document.querySelector('.submit');
 const restartButton = document.querySelector('.again');
 const highestScoreLabel = document.querySelector('.label-highest-score');
@@ -87,8 +87,6 @@ function counter(timeLeft) {
                 message.textContent = '💥Times up!!!';
                 content.innerHTML = `Your Score is ${score}`;
                 content.style.width = "100rem";
-                inputNumber.value = '';
-                inputName.style.display = 'block';
 
                 if (score > highScore) {
                     document.querySelector('body').style.backgroundColor = '#0000FF';
@@ -96,6 +94,12 @@ function counter(timeLeft) {
                     highScore = score;
                     console.log(highScore);
                 }
+
+                inputNumber.value = '';
+                inputNumber.disabled = true;
+                checkButton.style.cursor = 'not-allowed';
+
+                userField.style.display = 'block';
             }
         }, 1000);
     } else {
@@ -119,10 +123,13 @@ function checkResult() {
 
 // Function to checking name to submitted
 function checkSubmit() {
-    scoreMap.set(user.value, score);
-    user.value = '';
+    scoreMap.set(inputName.value, score);
+    inputName.value = '';
     scoreboard = '';
     rank = 1;
+
+    inputName.disabled = true;
+    submitButton.style.cursor = 'not-allowed';
 
     sortedDesc = [...scoreMap].sort((a, b) => (a[1] > b[1] ? -1 : 1));
 
@@ -224,10 +231,14 @@ inputNumber.addEventListener('keyup', (e) => {
 });
 
 restartButton.addEventListener('click', () => {
-    inputNumber.value = '';
     message.textContent = 'Start guessing...';
     content.style.width = '40rem';
-    inputName.style.display = 'none';
+    inputNumber.value = '';
+    inputNumber.disabled = false;
+    checkButton.style.cursor = 'pointer';
+    inputName.disabled = false;
+    userField.style.display = 'none';
+    submitButton.style.cursor = 'pointer';
 
     highestScoreLabel.textContent = '';
     document.querySelector('.score').textContent = 0;
@@ -240,7 +251,7 @@ submitButton.addEventListener('click', () => {
     checkSubmit();
 });
 
-inputName.addEventListener('keyup', (e) => {
+userField.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
         checkSubmit();
     }
