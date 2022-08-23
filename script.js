@@ -11,6 +11,8 @@ const playGame = () => {
   finalScoreParentEl.classList.remove('showup', 'mixColor');
   hideElement(finalScoreParentEl, questionMarkEl, buttonPlay, bestPlayerEl);
   showElement(questionFieldEl, playGameSection, headerTitleEl);
+  againBtnEl.setAttribute('disabled', '');
+  againBtnEl.classList.add('cursor-not-allowed');
 
   let interval = setInterval(() => {
     timer--;
@@ -78,6 +80,8 @@ const checkingUsername = e => {
     finalScoreParentEl.classList.add('showup', 'mixColor');
   }
   highscoreUserEl.value = '';
+  againBtnEl.removeAttribute('disabled');
+  againBtnEl.classList.remove('cursor-not-allowed');
   toggleElement(formHighScoreEl);
 };
 
