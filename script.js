@@ -88,6 +88,7 @@ function countDown() {
       btnSkip.classList.toggle("hidden");
       clearInterval(timer);
       btnCheck.disabled = true;
+      btnSubmit.disabled = false;
       theView.style.fontSize = "large";
       answer.disabled = true;
       if (score === 0) {
@@ -130,6 +131,7 @@ const again = () => {
   review = [];
   btnCheck.disabled = false;
   theView.style.fontSize = "6rem";
+  answer.disabled = false;
   btnSubmit.classList.add("hidden");
   highscoreField.classList.add("hidden");
   btnSkip.classList.remove("hidden");
