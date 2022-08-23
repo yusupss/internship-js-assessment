@@ -45,7 +45,9 @@ const players = [
 
 const displayHighscore = function (arr) {
   for (let i = 0; i < 5; i++) {
-    highScore[i].textContent = `${i + 1}. ${arr[i].name} ... ${arr[i].score}`;
+    highScore[i].textContent = `${i + 1}. ${arr[i].name} ... ${arr[i].score} ${
+      i === 0 ? '👑' : ''
+    }`;
   }
 };
 
@@ -78,12 +80,18 @@ const generateQuestion = function () {
 
 const showResult = function () {
   isPlaying = false;
-  displayMessage("💣 Time's up!");
+  btnAgainEl.classList.remove('hidden');
   questionEl.textContent = `You're Score is ${score}`;
   questionEl.style.width = '90rem';
+  guessEl.disabled = true;
+  displayMessage("💣 Time's up!");
+
   if (score > players[4].score) {
     resultEl.classList.remove('hidden');
-    bodyEl.style.backgroundColor = '#269c77';
+    bodyEl.style.backgroundColor =
+      score > players[0].score ? '#7a00aa' : '#269c77';
+  } else {
+    hasWrittenName = true;
   }
 };
 
@@ -92,7 +100,6 @@ const startTimer = function () {
   let timerId = setInterval(timer, 1000);
 
   function timer() {
-    console.log(timeLeft);
     if (timeLeft === 0) {
       clearInterval(timerId);
       showResult();
@@ -107,12 +114,14 @@ const start = function () {
     isPlaying = true;
     hasWrittenName = false;
 
+    btnAgainEl.classList.add('hidden');
     questionEl.classList.remove('btn');
     questionEl.style.width = '32rem';
     questionEl.removeEventListener('click', start);
     resultEl.classList.add('hidden');
     scoreEl.textContent = score;
     guessEl.value = '';
+    guessEl.disabled = false;
     nameEl.value = '';
     bodyEl.style.backgroundColor = '#222';
 
@@ -128,7 +137,6 @@ const checkAnswer = function () {
   if (isPlaying) {
     const guess = Number(guessEl.value);
     if (answer === guess) {
-      console.log(score);
       score++;
       scoreEl.textContent = score;
       displayMessage('✅ Correct Answer! Answer Next!');
@@ -144,7 +152,7 @@ const checkAnswer = function () {
 const addNewHighscore = function () {
   if (!hasWrittenName) {
     const name = nameEl.value;
-    players.push({ name: name, score: score });
+    players.push({ name, score });
     const sorter = (a, b) => {
       return b['score'] - a['score'];
     };
@@ -154,11 +162,20 @@ const addNewHighscore = function () {
   }
 };
 
+const again = function () {
+  if (hasWrittenName) {
+    start();
+  } else {
+    alert('Please Enter Your Name!');
+  }
+};
+
 const init = function () {
   questionEl.addEventListener('click', start);
   btnCheckEl.addEventListener('click', checkAnswer);
-  btnAgainEl.addEventListener('click', start);
+  btnAgainEl.addEventListener('click', again);
   btnSubmitEl.addEventListener('click', addNewHighscore);
+  guessEl.disabled = true;
 
   displayMessage('Click Start to play!');
   displayHighscore(players);
