@@ -112,6 +112,7 @@ const formNameHandle = function () {
     output += `<li>${arrHighScore[i].join(" ")}</li>`;
   }
   document.querySelector(".list-highscore").innerHTML = output;
+  question.textContent = "Thank you!";
   body.style.backgroundColor = "#60b347";
   btnFormName.disabled = true;
   inputName.disabled = true;
