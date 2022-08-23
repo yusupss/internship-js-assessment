@@ -79,11 +79,11 @@ const startTimer = () => {
 const refreshHighScore = () => {
     tbody.innerHTML = "";
     initialData = initialData.sort((a, b)=> b.score - a.score);
-    initialData.map((data)=>{
+    initialData.map((data, index)=>{
         const row = document.createElement('tr');
         
         const rank = document.createElement('td');
-        rank.innerText = data.rank;
+        rank.innerText = index + 1;
     
         const name = document.createElement('td');
         name.innerText = data.name;
@@ -129,7 +129,10 @@ const checkScore = () => {
     let sortedByLowRank = initialData.sort((a, b)=>a.score - b.score);
 
     sortedByLowRank.map((data)=>{
+        console.log(latestRank);
         currScore >= data.score ? latestRank = data.rank : null;
+
+        console.log("latest rank sebelum adalah: " + latestRank);
     });
     
     if (typeof latestRank === "number") {
@@ -167,8 +170,10 @@ const updateArrayLatest = (rank) => {
             }
         })
 
+        console.log("latest rank final: " + rank);
+
         initialData.splice(findIndex, 0, {
-            rank: latestRank,
+            rank: rank,
             name: document.getElementById("input-highscore").value,
             score: currScore
         });
