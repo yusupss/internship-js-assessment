@@ -8,6 +8,9 @@ const scoreMap = new Map([
     ["Leo", 2],
 ]);
 
+const OPERATORS = ["+", "-", "x", "÷"];
+const GAME_TIME_LENGTH = 20;
+
 let result = 0;
 let score = 0;
 let rank = 1;
@@ -20,8 +23,6 @@ let userExistValue = 0;
 let sortedDesc = new Map();
 let inputNumber = document.querySelector('.guess');
 let timer = document.getElementById("time");
-
-const GAME_TIME_LENGTH = 20;
 
 const content = document.querySelector(".content");
 const checkButton = document.querySelector('.check');
@@ -46,9 +47,8 @@ function getRandomInt(min, max) {
 };
 
 // Function to make the expression math
-function compute() {
-    const operators = ["+", "-", "x", "÷"];
-    content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + ' ' + operators[getRandomInt(0, 3)] + ' ' + (Math.trunc(Math.random() * 10) + 1);
+function compute(OPERATORS) {
+    content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + ' ' + OPERATORS[getRandomInt(0, 3)] + ' ' + (Math.trunc(Math.random() * 10) + 1);
     result = evaluate(document.querySelector(".content").textContent);
 
     return result;
@@ -57,7 +57,7 @@ function compute() {
 // Function to calculate the countdown
 function counter(timeLeft) {
     if (!countdownStarted) {
-        compute();
+        compute(OPERATORS);
         score = 0;
         timer.textContent = GAME_TIME_LENGTH;
         let countdown = setInterval(function() {
@@ -95,7 +95,7 @@ function checkResult() {
         message.textContent = '🎉Correct Answer, Answer next!';
         document.querySelector('.score').textContent = score;
         inputNumber.value = '';
-        compute();
+        compute(OPERATORS);
     } else {
         message.textContent = '💥Wrong Answer, Try again!';
     }
@@ -202,5 +202,5 @@ inputName.addEventListener('keyup', (e) => {
     }
 });
 
-compute();
+compute(OPERATORS);
 counter(GAME_TIME_LENGTH);
