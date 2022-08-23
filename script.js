@@ -24,6 +24,10 @@ let sortedDesc = new Map();
 let inputNumber = document.querySelector('.guess');
 let timer = document.getElementById("time");
 
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const closeModalButton = document.querySelector('.close-modal');
+const openModalButton = document.querySelector('.tutorial');
 const content = document.querySelector(".content");
 const checkButton = document.querySelector('.check');
 const message = document.querySelector('.message');
@@ -47,7 +51,7 @@ function getRandomInt(min, max) {
 };
 
 // Function to make the expression math
-function compute(OPERATORS) {
+function compute() {
     content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + ' ' + OPERATORS[getRandomInt(0, 3)] + ' ' + (Math.trunc(Math.random() * 10) + 1);
     result = evaluate(document.querySelector(".content").textContent);
 
@@ -57,7 +61,7 @@ function compute(OPERATORS) {
 // Function to calculate the countdown
 function counter(timeLeft) {
     if (!countdownStarted) {
-        compute(OPERATORS);
+        compute();
         score = 0;
         timer.textContent = GAME_TIME_LENGTH;
         let countdown = setInterval(function() {
@@ -95,7 +99,7 @@ function checkResult() {
         message.textContent = '🎉Correct Answer, Answer next!';
         document.querySelector('.score').textContent = score;
         inputNumber.value = '';
-        compute(OPERATORS);
+        compute();
     } else {
         message.textContent = '💥Wrong Answer, Try again!';
     }
@@ -170,6 +174,21 @@ function getOperator(op, b, a) {
     return 0;
 };
 
+openModalButton.addEventListener('click', () => {
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+});
+
+closeModalButton.addEventListener('click', () => {
+    modal.style.display = 'none';
+    overlay.style.display = 'none';
+});
+
+overlay.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    overlay.classList.add('hidden');
+});
+
 checkButton.addEventListener('click', () => {
     checkResult();
 });
@@ -202,5 +221,5 @@ inputName.addEventListener('keyup', (e) => {
     }
 });
 
-compute(OPERATORS);
+compute();
 counter(GAME_TIME_LENGTH);

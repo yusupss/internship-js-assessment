@@ -19,6 +19,17 @@
         <div class="content">?</div>
     </header>
     <main>
+        <div class="modal" style="display: none">
+            <button class="close-modal">&times;</button>
+            <ol class="rule-list">
+                <li class="rule">Fill input above check button to answer the questions</li>
+                <li class="rule">If the answer is correct then the points will increase +1</li>
+                <li class="rule">If the answer is wrong, no points will be deducted</li>
+                <li class="rule">Get as many points and reach rank #1</li>
+            </ol>
+        </div>
+        <div class="overlay" style="display: none"></div>
+
         <div class="left">
             <input type="number" class="guess" />
             <button class="btn check" id="check">Check!</button>
