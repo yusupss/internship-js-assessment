@@ -40,7 +40,7 @@ const endGame = () => {
 };
 
 const checkingAnswer = () => {
-  if (timer) {
+  if (timer && answerEl.value) {
     const answer = +answerEl.value;
     messageEl.textContent =
       answer === result
