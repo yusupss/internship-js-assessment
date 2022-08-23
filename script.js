@@ -81,9 +81,10 @@ btnSubmit.addEventListener("click", function () {
   viewHighScore();
   btnReview.classList.remove("hidden");
 });
+let timer;
 function countDown() {
   timeLeft = 20;
-  let timer = setInterval(function () {
+  timer = setInterval(function () {
     if (timeLeft == 0) {
       btnSkip.classList.toggle("hidden");
       clearInterval(timer);
@@ -127,7 +128,7 @@ function toggleHighscore() {
 }
 
 const again = () => {
-  timeLeft = 20;
+  window.clearInterval(timer);
   review = [];
   btnCheck.disabled = false;
   theView.style.fontSize = "6rem";
