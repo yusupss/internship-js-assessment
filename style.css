@@ -32,6 +32,7 @@ main {
   align-items: center;
   gap: 6rem;
   padding: 2rem;
+  margin-top: 3rem;
 }
 
 .left {

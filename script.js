@@ -63,6 +63,9 @@ const startTimer = () => {
             clearInterval(interval);
             isLose = true;
             message.innerText = "Times up!!!"
+            firstNumberEl.innerText = "";
+            secondNumberEl.innerText = "";
+            operatorEl.innerText = `Your score is ${currScore}`;
             checkScore();
             return;
         }
@@ -75,7 +78,7 @@ const refreshHighScore = () => {
     tbody.innerHTML = "";
 
     initialData = initialData.sort((a, b)=> b.score - a.score);
-    
+
     initialData.map((data, index)=>{
         const row = document.createElement('tr');
         
@@ -207,7 +210,6 @@ checkBtn.addEventListener('click', function() {
             refreshQuestions();
         } else if (parseInt(inputVal.value) !== parseInt(resultOperation)) {
             displayMessage("Wrong answer, try again");
-            refreshQuestions();
         } 
     } else {
         isLostNotificationEl.classList.remove('hidden');
