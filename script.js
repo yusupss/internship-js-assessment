@@ -44,8 +44,8 @@ const checkingAnswer = () => {
     const answer = +answerEl.value;
     messageEl.textContent =
       answer === result
-        ? `🎉 Correct answer! Answer next!`
-        : `🚫 Wrong answer, try again!`;
+        ? `✅ Correct answer! Answer next!`
+        : `❌ Wrong answer, try again!`;
 
     scoreEl.textContent = answer === result ? ++currentScore : currentScore;
 
