@@ -52,3 +52,4 @@ const submitBtnEl = document.querySelector('#submit-btn');
 const againBtnEl = document.querySelector('.again');
 const bestPlayerNameEl = document.querySelector('#bestPlayerName');
 const bestPlayerEl = document.querySelector('#bestPlayer');
+const headerTitleEl = document.querySelector('#headerTitle');

@@ -10,7 +10,7 @@ const playGame = () => {
   finalScoreParentEl.textContent = currentScore;
   finalScoreParentEl.classList.remove('showup', 'mixColor');
   hideElement(finalScoreParentEl, questionMarkEl, buttonPlay, bestPlayerEl);
-  showElement(questionFieldEl, playGameSection);
+  showElement(questionFieldEl, playGameSection, headerTitleEl);
 
   let interval = setInterval(() => {
     timer--;
@@ -72,7 +72,7 @@ const checkingUsername = e => {
     : finalScoreParentEl.textContent;
 
   if (isHighest) {
-    hideElement(questionFieldEl, playGameSection);
+    hideElement(questionFieldEl, playGameSection, headerTitleEl);
     showElement(bestPlayerEl);
     bestPlayerNameEl.textContent = `${name.toUpperCase()}!`;
     finalScoreParentEl.classList.add('showup', 'mixColor');
