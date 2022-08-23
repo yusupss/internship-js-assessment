@@ -10,32 +10,34 @@
   <body>
     <header>
       <h1>Do the Math!</h1>
-      <button class="btn again">Again!</button>
+      <button class="btn new--game">Again!</button>
       <div class="number">?</div>
     </header>
     <main>
       <section class="left">
-        <input type="number" class="guess" />
-        <button class="btn check">Check!</button>
+        <form id="check--calculation">
+          <input type="number" class="guess" />
+          <button type="submit" class="btn check">Check!</button>
+        </form>
       </section>
       <section class="right">
-        <div class="finish">
+        <form id="new--highscore">
           <p>New Highscore!!!</p>
           <p>Please enter your name:</p>
           <input type="name" class="name" />
-          <button class="btn highscore">Submit!</button>
-        </div>
+          <button type="submit" class="btn highscore">Submit!</button>
+        </form>
         <p class="message">Start guessing...</p>
         <p class="label-score">⌛ Time Left: <span class="time">20</span></p>
         <p class="label-highscore">💯 Score: <span class="score">0</span></p>
       </section>
       <section class="right leaderboard">
         <p class="message">Highscore...</p>
-        <p>1. <span class="rank player--1">A</span></p>
-        <p>2. <span class="rank player--2">A</span></p>
-        <p>3. <span class="rank player--3">A</span></p>
-        <p>4. <span class="rank player--4">A</span></p>
-        <p>5. <span class="rank player--5">A</span></p>
+        <p>1. <span class="rank player--1">Luffy ... 5</span></p>
+        <p>2. <span class="rank player--2">Sanji ... 4</span></p>
+        <p>3. <span class="rank player--3">Zoro ... 3</span></p>
+        <p>4. <span class="rank player--4">Jimbei ... 2</span></p>
+        <p>5. <span class="rank player--5">Nico Robin ... 1</span></p>
       </section>
     </main>
     <script src="script.js"></script>
