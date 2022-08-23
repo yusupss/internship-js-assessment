@@ -84,6 +84,7 @@ const showResult = function () {
   questionEl.textContent = `You're Score is ${score}`;
   questionEl.style.width = '90rem';
   guessEl.disabled = true;
+  nameEl.disabled = false;
   displayMessage("💣 Time's up!");
 
   if (score > players[4].score) {
@@ -159,6 +160,7 @@ const addNewHighscore = function () {
     players.sort(sorter);
     displayHighscore(players);
     hasWrittenName = true;
+    nameEl.disabled = true;
   }
 };
 
