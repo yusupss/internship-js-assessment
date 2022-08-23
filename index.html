@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Do The Math!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Do The M☠️th!</h1>
+      <p class="between show-modal">Scoreboard</p>
+      <button class="btn again">Again!</button>
+      <div class="number">1 + 1</div>
+    </header>
+    <main>
+      <section class="left">
+        <form>
+          <input type="number" class="guess" />
+          <button class="btn check">Check!</button>
+        </form>
+      </section>
+      <section class="right">
+        <div class="highscore hidden">
+          <p class="highscore-label">New Highscore!!!</p>
+          <p class="highscore-label">Please enter your name:</p>
+          <form>
+            <input type="text" class="highscore-input" />
+            <button class="highscore-btn">Submit</button>
+          </form>
+        </div>
+        <p class="message">Start guessing...</p>
+        <p class="timeleft">⏳ Time Left: <span class="time">99</span></p>
+        <p class="label-highscore">💯 Score: <span class="score">20</span></p>
+      </section>
+      <section class="right">
+        <p class="message">📈 Highscore...</p>
+        <div class="highscore-table"></div>
+      </section>
+
+      <div class="modal hidden">
+        <button class="close-modal">&times;</button>
+        <h2 class="modal-title">Scoreboard</h2>
+        <div class="modal-text modal-content"></div>
+      </div>
+      <div class="overlay hidden"></div>
+    </main>
+    <script src="confetti.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
