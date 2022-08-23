@@ -159,6 +159,7 @@ const init = function () {
   btnAgainEl.addEventListener('click', start);
   btnSubmitEl.addEventListener('click', addNewHighscore);
 
+  displayMessage('Click Start to play!');
   displayHighscore(players);
 };
 
