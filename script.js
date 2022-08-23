@@ -94,6 +94,7 @@ function countDown() {
       btnSubmit.disabled = false;
       theView.style.fontSize = "large";
       answer.disabled = true;
+      message.innerHTML = " ";
       if (score === 0) {
         theView.innerHTML = "Try again next time 😊";
         btnReview.classList.remove("hidden");
