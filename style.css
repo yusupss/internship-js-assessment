@@ -34,6 +34,19 @@ main {
     justify-content: space-around;
 }
 
+table {
+    width: 70%;
+}
+
+td.score-board,
+th.h-table {
+    text-align: left;
+}
+
+td.rank {
+    text-align: center;
+}
+
 .left {
     width: 52rem;
     display: flex;

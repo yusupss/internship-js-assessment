@@ -38,10 +38,21 @@ const restartButton = document.querySelector('.again');
 const highestScoreLabel = document.querySelector('.label-highest-score');
 
 // For showing first scoreboard in web
+scoreboard += `<table>
+                <tr style="height: 4rem">
+                    <th class="h-table">No.</th>
+                    <th class="h-table">Name</th>
+                    <th>Score</th>
+                </tr>`
 scoreMap.forEach((value, key) => {
-    scoreboard += `<p class="score-board">${rank}. ${key}... <span class="score">${value}</span></p><br>`;
-    rank++;
-});
+    scoreboard += ` <tr>
+                        <td>${rank}.</td>
+                        <td class="score-board">${key} </td>
+                        <td class="rank"><span class="score">${value}</span></td>
+                    </tr>`;
+                    rank++;
+                });
+scoreboard += `</table>`
 
 document.getElementById('score-board').innerHTML = scoreboard;
 
@@ -114,13 +125,25 @@ function checkSubmit() {
 
     sortedDesc = [...scoreMap].sort((a, b) => (a[1] > b[1] ? -1 : 1));
 
+    scoreboard += `<table>
+                <tr style="height: 4rem">
+                    <th class="h-table">No.</th>
+                    <th class="h-table">Name</th>
+                    <th>Score</th>
+                </tr>`
     sortedDesc.forEach((value) => {
         if (rank > 5) {
             return;
         }
-        scoreboard += `<p class="score-board">${rank}. ${value[0]}... <span class="score">${value[1]}</span></p><br>`;
-        rank++;
-    });
+        scoreboard += ` <tr>
+                        <td>${rank}.</td>
+                        <td class="score-board">${value[0]} </td>
+                        <td class="rank"><span class="score">${value[1]}</span></td>
+                    </tr>`;
+                    rank++;
+                });
+        // scoreboard += `<p class="score-board">${rank}. ${value[0]}... <span class="score">${value[1]}</span></p><br>`;
+    scoreboard += `</table>`
     document.getElementById('score-board').innerHTML = scoreboard;
 };
 
