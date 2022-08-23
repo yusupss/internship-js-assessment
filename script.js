@@ -45,6 +45,8 @@ const highScore = document.querySelector(".highscore");
 const inputVal = document.querySelector(".guess");
 const tbody = document.querySelector('.table-content');
 const timeLeft = document.querySelector('.time-left');
+const checkBtn = document.querySelector(".check");
+const againBtn = document.querySelector(".again");
 const firstNumberEl = document.getElementById('first-number');
 const operatorEl = document.getElementById('operator');
 const secondNumberEl = document.getElementById('second-number');
@@ -76,7 +78,7 @@ const startTimer = () => {
 
 const refreshHighScore = () => {
     tbody.innerHTML = "";
-    initialData = initialData.sort((a, b)=> a.rank - b.rank);
+    initialData = initialData.sort((a, b)=> b.score - a.score);
     initialData.map((data)=>{
         const row = document.createElement('tr');
         
@@ -108,7 +110,6 @@ const refreshQuestions = () => {
     secondNumberEl.innerText = secondNumber;
     operatorEl.innerText = operator;
     resultOperation = getResult(firstNumber, operator, secondNumber);
-    // console.log(resultOperation);
 }
 
 const getResult = (a, operator, b) => {
@@ -136,16 +137,6 @@ const checkScore = () => {
     }
 }
 
-btnSubmitHighScoreEl.addEventListener('click', ()=> {
-    if (!isSubmitted && inputNameHighScoreEl.value) {
-        updateArrayLatest(latestRank);
-    } else if (!inputNameHighScoreEl.value) {
-        invalidNameNotificationEl.classList.remove('hidden');
-    } else {
-        isSubmittedNotificationEl.classList.remove('hidden');
-    }
-});
-
 const handleInputNameChange = () => {
     const el = document.getElementById('input-highscore');
     if (el.value != "") {
@@ -158,7 +149,7 @@ const handleInputNameChange = () => {
 const updateArrayLatest = (rank) => {
     let findIndex;
 
-    initialData = initialData.sort((a, b)=> a.rank - b.rank);
+    initialData = initialData.sort((a, b)=> b.score - a.score);
     
     initialData.map((data, index)=> {
         if (data.rank == rank) {
@@ -168,7 +159,7 @@ const updateArrayLatest = (rank) => {
     })
 
     if (typeof rank === "number") {
-        initialData = initialData.sort((a, b)=> a.rank - b.rank);
+        initialData = initialData.sort((a, b)=> b.score - a.score);
 
         initialData.map((data, index)=> {
             if (index >= findIndex) {
@@ -184,7 +175,7 @@ const updateArrayLatest = (rank) => {
 
         initialData = [...initialData.slice(0, findIndex), ...initialData.slice(findIndex, initialData.length - 1)];
 
-        initialData = initialData.sort((a, b)=> a.rank - b.rank);
+        initialData = initialData.sort((a, b)=> b.score - a.score);
         refreshHighScore();
         latestRank = null;
         isSubmitted = true;
@@ -210,14 +201,13 @@ const init = () => {
     isSubmitted = false;
     displayMessage("Start guessing...");
     changeBackground("#222");
+    clearInterval(interval);
     startTimer();
     refreshHighScore();
     refreshQuestions();
 }
 
-init();
-
-document.querySelector(".check").addEventListener('click', function() {
+checkBtn.addEventListener('click', function() {
     let score = document.querySelector(".score").innerText;
     currScore = parseInt(score);
 
@@ -241,10 +231,22 @@ document.querySelector(".check").addEventListener('click', function() {
     }
 })
 
-document.querySelector(".again").addEventListener("click", function() {
+againBtn.addEventListener("click", function() {
     init();
     invalidNameNotificationEl.classList.add('hidden');
     isSubmittedNotificationEl.classList.add('hidden');
     isLostNotificationEl.classList.add('hidden');
     submitHighScoreEl.classList.add('hidden');
 });
+
+btnSubmitHighScoreEl.addEventListener('click', ()=> {
+    if (!isSubmitted && inputNameHighScoreEl.value) {
+        updateArrayLatest(latestRank);
+    } else if (!inputNameHighScoreEl.value) {
+        invalidNameNotificationEl.classList.remove('hidden');
+    } else {
+        isSubmittedNotificationEl.classList.remove('hidden');
+    }
+});
+
+init();
