@@ -137,6 +137,7 @@ const checkScore = () => {
     }
 
     if (typeof currentRank === "number") {
+        changeBackground("#14C38E");
         submitHighScoreEl.classList.remove('hidden');
     }
 }
