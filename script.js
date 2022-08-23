@@ -59,7 +59,7 @@ const invalidNameNotificationEl = document.getElementById('invalid-name');
 const isSubmittedNotificationEl = document.getElementById('is-submitted');
 
 const startTimer = () => {
-    timeLeft.innerText = 5;
+    timeLeft.innerText = 20;
     let value = parseInt(timeLeft.innerText);
     interval = setInterval(()=> {
         if (value <= 0) {
