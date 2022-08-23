@@ -1,4 +1,8 @@
 "use strict";
+// Color
+const greenBG = "#60b347";
+const redBG = "rgb(121, 10, 10)";
+const yellowBG = "rgb(224, 101, 0)";
 
 const question = document.querySelector(".question");
 const btnCheck = document.querySelector(".check");
@@ -26,14 +30,23 @@ const timeCounter = function (limit = 20) {
     if (limit <= 0) {
       clearInterval(timer);
       sendMessage("Times up!!");
-      question.textContent = "Over!";
-      guess.disabled = true;
-      btnCheck.disabled = true;
-      body.style.backgroundColor = "rgb(121, 10, 10)";
+      question.textContent = `Your score is ${score.textContent}`;
       labelTime.textContent = 0;
       guess.value = null;
-      form.classList.remove("hidden");
-      message.classList.add("hidden");
+      guess.disabled = true;
+      btnCheck.disabled = true;
+
+      // comparison with lowest score
+      const lowestScoreArr = document.querySelector(".list-highscore li:last-child").textContent.split(" ");
+      const lowestScore = Number(lowestScoreArr[lowestScoreArr.length - 1]);
+      if (Number(score.textContent) <= lowestScore) {
+        body.style.backgroundColor = redBG;
+        sendMessage("Your score is still low!");
+      } else {
+        body.style.backgroundColor = yellowBG;
+        form.classList.remove("hidden");
+        message.classList.add("hidden");
+      }
     } else {
       labelTime.textContent = limit;
     }
@@ -57,13 +70,13 @@ const init = function () {
 };
 
 btnCheck.addEventListener("click", function () {
-  const guessValue = guess.value;
-  if (!guessValue) {
+  const guessValue = Number(guess.value);
+  if (!guess.value) {
     // Not Guessing
     sendMessage("Please insert a number!");
   }
   // Correct Guess
-  else if (Number(guessValue) === realAnswer) {
+  else if (guessValue === realAnswer) {
     sendMessage(`Correct number! `);
     score.textContent++;
     guess.value = null;
@@ -76,7 +89,7 @@ btnCheck.addEventListener("click", function () {
     if (guessValue === lastValue) {
       sendMessage("Your answer is the same as before!");
     }
-    lastValue = guess.value;
+    lastValue = guessValue;
     guess.value = null;
   }
 });
@@ -113,7 +126,7 @@ const formNameHandle = function () {
   }
   document.querySelector(".list-highscore").innerHTML = output;
   question.textContent = "Thank you!";
-  body.style.backgroundColor = "#60b347";
+  body.style.backgroundColor = greenBG;
   btnFormName.disabled = true;
   inputName.disabled = true;
 };
