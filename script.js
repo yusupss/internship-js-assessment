@@ -47,8 +47,8 @@ function getRandomInt(min, max) {
 
 // Function to make the expression math
 function compute() {
-    const operators = ["+", "-", "*"];
-    content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + operators[getRandomInt(0,2)] + (Math.trunc(Math.random() * 10) + 1);
+    const operators = ["+", "-", "x", "÷"];
+    content.innerHTML = (Math.trunc(Math.random() * 10) + 1) + ' ' + operators[getRandomInt(0, 3)] + ' ' + (Math.trunc(Math.random() * 10) + 1);
     result = eval(document.querySelector(".content").textContent);
 
     return result;
@@ -96,11 +96,11 @@ function checkResult() {
         inputNumber.value = '';
         compute();
     } else {
-        console.log('ANEH JIG');
         message.textContent = '💥Wrong Answer, Try again!';
     }
 };
 
+// Function to checking name to submitted
 function checkSubmit() {
     scoreMap.set(user.value, score);
     user.value = '';
@@ -117,6 +117,20 @@ function checkSubmit() {
         rank++;
     });
     document.getElementById('score-board').innerHTML = scoreboard;
+};
+
+function getOperator(op, b, a) {
+    switch (op) {
+        case '+':
+            return a + b;
+        case '-':
+            return a - b;
+        case 'x':
+            return a * b;
+        case '÷':
+            return parseInt(a / b, 10);
+    }
+    return 0;
 };
 
 checkButton.addEventListener('click', () => {
