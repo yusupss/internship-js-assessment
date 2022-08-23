@@ -100,8 +100,8 @@ const refreshHighScore = () => {
 }
 
 const refreshQuestions = () => {
-    firstNumber = Math.trunc(Math.random() * 20) + 1;
-    secondNumber = Math.trunc(Math.random() * 20) + 1;
+    firstNumber = Math.trunc(Math.random() * 9) + 1;
+    secondNumber = Math.trunc(Math.random() * 9) + 1;
     operator = operatorData[Math.trunc(Math.random() * operatorData.length)];
     
     firstNumberEl.innerText = firstNumber;
