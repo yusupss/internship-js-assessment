@@ -49,7 +49,7 @@ const checkingAnswer = () => {
 
     scoreEl.textContent = answer === result ? ++currentScore : currentScore;
 
-    generateQuestion();
+    answer === result && generateQuestion();
     answerEl.value = '';
   }
 };
