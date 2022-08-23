@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Press Start 2P', sans-serif;
+  color: #eee;
+  background-color: #222;
+  /* background-color: #60b347; */
+}
+
+/* LAYOUT */
+header {
+  position: relative;
+  height: 25vh;
+  border-bottom: 7px solid #eee;
+}
+
+main {
+  height: 65vh;
+  color: #eee;
+}
+
+/* ELEMENTS STYLE */
+h1 {
+  width: 100%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.number {
+  background: #eee;
+  color: #333;
+  font-size: 6rem;
+  width: 30rem;
+  padding: 3rem 0rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.again {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.answer {
+  background: none;
+  border: 4px solid #eee;
+  font-family: inherit;
+  color: inherit;
+  font-size: 5rem;
+  padding: 2.5rem;
+  width: 25rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 3rem;
+}
+
+.btn {
+  border: none;
+  background-color: #eee;
+  color: #222;
+  font-size: 2rem;
+  font-family: inherit;
+  padding: 2rem 3rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ccc;
+}
+
+.message {
+  height: 3rem;
+}
+
+.label-score {
+  margin-bottom: 2rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.bestPlayerTitle {
+  animation: blip .7s ease-out infinite;
+}
+
+@keyframes blip {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.showup {
+  animation: showup 1s ease-out 1;
+}
+
+@keyframes showup {
+  0% {
+    opacity: 0;
+    scale: 0;
+    background: #222;
+  }
+  25% {
+    opacity: 0.25;
+    scale: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+    scale: 0.5;
+    background: gray;
+  }
+  75% {
+    opacity: 0.75;
+    scale: 0.75;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+    background: #eee
+  }
+}
+
+.mixColor {
+  animation: mixColor 1s ease-in-out infinite;
+}
+
+@keyframes mixColor {
+  0% {
+    background: #7B113A;
+    color: whitesmoke;
+  }
+  25% {
+    background: #150E56;
+    color: gray;
+  }
+  50% {
+    background: #1597BB;
+    color: #F0A500;
+  }
+  75% {
+    background: #8FD6E1;
+    color: #CF7500;
+  }
+  100% {
+    background: #A5BECC;
+    color: #1A1C20;
+  }
+}
