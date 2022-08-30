@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Do The Math!</title>
+</head>
+
+<body>
+    <header>
+        <h1>Do The Math!</h1>
+        <div class="nav">
+            <button class="btn again">Again!</button>
+            <button class="btn tutorial">How To Play</button>
+        </div>
+        <div class="content">?</div>
+    </header>
+
+    <div class="modal" style="display: none">
+        <button class="close-modal">&times;</button>
+        <ol class="rule-list">
+            <li>Fill input above check button to answer the questions</li>
+            <li>If the answer is correct then the points will increase +1</li>
+            <li>If the answer is wrong, no points will be deducted</li>
+            <li>Get as many points and reach rank #1</li>
+        </ol>
+    </div>
+    <div class="overlay" style="display: none"></div>
+
+    <main>
+        <div class="left">
+            <input type="number" class="guess" />
+            <button class="btn check" id="check">Check!</button>
+        </div>
+
+        <div class="middle">
+            <div class="userField" style="display: none">
+                <p class="label-highest-score"></p>
+                <p class="label-input-name">Please enter your name!</p>
+                <br>
+                <input type="text" class="inputName" />
+                <button class="btn submit" id="submit">Submit</button>
+                <br><br>
+            </div>
+
+            <p class="message">Start guessing...</p>
+            <p class="label-score">⏳ Time left: <span id="time">20</span></p>
+            <p class="label-score">
+                💯 Score: <span class="score">0</span>
+            </p>
+        </div>
+
+        <div class="right">
+            <p class="message">Highscore...</p>
+            <div class="score-board" id="score-board">
+
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
